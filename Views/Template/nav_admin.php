@@ -105,6 +105,7 @@
             <li><a class="treeview-item" href="<?= base_url();?>/Productos"><i class="icon fa fa-circle-o"></i>Productos</a></li>
             <li><a class="treeview-item" href="<?= base_url();?>/Proveedor"><i class="icon fa fa-circle-o"></i>Proveedor</a></li>
             <li><a class="treeview-item" href="<?= base_url();?>/Ventas"><i class="icon fa fa-circle-o"></i>Ventas</a></li>
+            <li><a class="treeview-item" href="<?= base_url();?>/Ventas/historial"><i class="icon fa fa-circle-o"></i>Facturas</a></li>
           </li>
           </ul>
         </li>
