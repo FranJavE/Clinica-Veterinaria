@@ -16,7 +16,7 @@
 			</td> -->
 			<td class="info_empresa">
 				<div>
-					<span class="h2">VET. AMIGOS</span>
+					<span class="h2">El Gato</span>
 					<p>Barrio Altagracia, De la racachaca 1/2 arriba 505 Managua, Nicaeagua</p>
 					<p>Teléfono: +(502) 2222-3333</p>
 					<p>Horario: Siempre abierto</p>

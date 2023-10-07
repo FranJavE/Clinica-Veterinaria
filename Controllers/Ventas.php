@@ -109,7 +109,7 @@
 			$pdf->SetMargins(2, 0, 0);
 			$pdf->SetTitle('Reporte de Venta');
 			$pdf->SetFont('Arial','B',12);
-			$pdf->Cell(60,10, utf8_decode('Clinica Veterinaria Vet Amigos'));
+			$pdf->Cell(60,10, utf8_decode('Clinica Veterinaria El Gato'));
             
 			$pdf->Ln(); // Agregar un salto de línea
 			$pdf->SetFont('Arial', 'B', 8);
