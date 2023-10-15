@@ -68,7 +68,8 @@
 		}
 		public function selectClientes()
 		{
-			$sql = "SELECT p.id_persona,p.identificacion,p.Nombre,p.Apellido,p.Telefono,p.email_user,p.status,p.Direccion
+			$sql = "SELECT p.id_persona,p.identificacion,p.Nombre,p.Apellido,p.Telefono,p.email_user,p.status,p.Direccion,
+			concat(p.Nombre,' ', p.Apellido) AS nombreCompleto
 			From tbl_persona p 
 			INNER JOIN tbl_rol r 
 			on p.id_rol  = r.id_rol 

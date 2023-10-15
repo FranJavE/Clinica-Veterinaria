@@ -111,10 +111,6 @@
 					<table class="label_tbl">
 		   	<tbody>
 		  		<tr>
-		  			<td>Tratamiento:</td>
-		  			<td></td>
-		  		</tr>
-		  		<tr>
 		  			<td>Descripcion:</td>
 		  			<td></td>
 		  		</tr>

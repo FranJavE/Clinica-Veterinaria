@@ -26,12 +26,11 @@
           <div class="tile">
             <div class="tile-body">
               <div class="table-responsive">
-                <table class="table table-hover table-bordered" id="tableCitas">
+                <table class="table table-hover table-bordered" id="tableCitas" style="width: 100%;">
                   <thead>
                     <tr>
                       <th>Dueño</th>
                       <th>Paciente</th>
-                      <th>Especie</th>
                       <th>Descripcion</th>
                       <th>Fecha</th>
                       <th>Hora</th>

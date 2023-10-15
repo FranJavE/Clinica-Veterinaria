@@ -31,11 +31,6 @@
                     <select class="form-control" data-live-search="true" id="listMedicoId" name="listMedicoId" required >
                     </select>
                 </div>
-                 <div class="form-group col-md-6">
-                    <label for="listTratamiento">Tratamiento <span class="required">*</span></label>
-                    <select class="form-control" data-live-search="true" id="listTratamiento" name="listTratamiento" required >
-                    </select>
-                </div>
                 </div>
 
 				  <div class="form-group">
@@ -102,10 +97,6 @@
 		  		<tr>
 		  			<td>Raza:</td>
 		  			<td id="celRaza"></td>
-		  		</tr>
-		  		<tr>
-		  			<td>Tratamiento:</td>
-		  			<td id="celTratamiento"></td>
 		  		</tr>
 		  		<tr>
 		  			<td>Descripcion:</td>

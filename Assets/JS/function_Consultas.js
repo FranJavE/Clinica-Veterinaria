@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function(){
             {"data":"Dueño"},
             {"data":"NombreMascota"},
             {"data":"NombreEspecie"},
-            {"data":"NombreTratamiento"},
             {"data":"NombreMedico"},
             {"data":"fechaconsulta"},
             {"data":"hora"},
@@ -62,13 +61,12 @@ document.addEventListener('DOMContentLoaded', function(){
             e.preventDefault();
             let intIsPaciente = document.querySelector('#listPaciente').value;
             let intIsMedico = document.querySelector('#listMedicoId').value;
-            let intlistTratamiendo = document.querySelector('#listTratamiento').value;
             let strDescripcion= document.querySelector('#txtDescripcion').value;
             let DateFecha = document.querySelector('#txtFecha').value;
             let strHora = document.querySelector('#txtHora').value;
             let intPrecio= document.querySelector('#txtPrecio').value;
 
-            if(intIsPaciente == '' || intIsMedico == '' || intlistTratamiendo == '' || strDescripcion == '' || intPrecio == '' || 
+            if(intIsPaciente == '' || intIsMedico == '' || strDescripcion == '' || intPrecio == '' || 
                 DateFecha == '' || strHora == '')
             {
                 swal("Atencion", "Todos los campos son obligatorios. ", "error");
@@ -98,11 +96,10 @@ document.addEventListener('DOMContentLoaded', function(){
                           tableConsultas.api().ajax.reload();
                         }else{ 
                             rowTable.cells[1].textContent = document.querySelector('#listPaciente').selectedOptions[0].text;
-                            rowTable.cells[3].textContent = document.querySelector('#listTratamiento').selectedOptions[0].text;
-                            rowTable.cells[4].textContent = document.querySelector('#listMedicoId').selectedOptions[0].text;
-                            rowTable.cells[6].textContent = strHora;
-                            rowTable.cells[5].textContent = DateFecha;
-                            rowTable.cells[7].innerHTML = intPrecio;
+                            rowTable.cells[3].textContent = document.querySelector('#listMedicoId').selectedOptions[0].text;
+                            rowTable.cells[5].textContent = strHora;
+                            rowTable.cells[4].textContent = DateFecha;
+                            rowTable.cells[6].innerHTML = intPrecio;
                         }
                         $('#modalFormConsulta').modal('hide');
                         formConsulta.reset();
@@ -125,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function(){
 window.addEventListener('load', function(){
     fntDueno();
     fntMedico();
-    fntTratamiento();
 }, false);
 
 function fntDueno(){
@@ -161,21 +157,6 @@ function fntMedico(){
     }
  }
 
-function fntTratamiento(){
-  let ajaxUrl = base_url+'/Consultas/getSelectTratamiento';
-    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    request.open("GET",ajaxUrl,true);
-    request.send();
-
-    request.onreadystatechange = function(){
-        if(request.readyState == 4 && request.status == 200){
-            document.querySelector('#listTratamiento').innerHTML = request.responseText;
-           //document.querySelector('#listDuenoId').value = id_persona;
-            $('#listTratamiento').selectpicker('render');
-            //fntMascotas();
-        }
-    }
- }
  function fntMascotas()
 {   
     let intlistPacienteeId = document.querySelector('#listDuenoId').value;
@@ -227,8 +208,6 @@ function fntEditConsulta(element, idConsulta)
                     $('#listPaciente').selectpicker('render');
                     document.querySelector('#listMedicoId').value = objData.data.id_medico;
                     $('#listMedicoId').selectpicker('render');
-                    document.querySelector('#listTratamiento').value = objData.data.id_tratamiento;
-                    $('#listTratamiento').selectpicker('render');
                     document.querySelector('#txtDescripcion').value = objData.data.Descripcion;
                     document.querySelector('#txtFecha').value = objData.data.fechaconsulta;
                     document.querySelector('#txtHora').value = objData.data.hora;
@@ -261,7 +240,6 @@ function fntViewConsulta(idConsulta)
                     document.querySelector("#celRaza").innerHTML = objData.data.NombreRaza;
                     document.querySelector("#celDescripcion").innerHTML = objData.data.Descripcion;
                     document.querySelector("#celPrecio").innerHTML = objData.data.Precio;
-                    document.querySelector("#celTratamiento").innerHTML = objData.data.NombreTratamiento;
                     document.querySelector("#celFecha").innerHTML = objData.data.fechaconsulta;
                     document.querySelector("#celHora").innerHTML =  objData.data.hora;
                     $('#modalViewConsulta').modal('show');

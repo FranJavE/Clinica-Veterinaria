@@ -1,3 +1,10 @@
+<style>
+  /* Estilo para mover el modal hacia la derecha */
+  .modal.fade.ModalPermisos {
+    transform: translateX(9%); /* Ajusta este valor según sea necesario */
+  }
+</style>
+
 <div class="modal fade ModalPermisos" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">

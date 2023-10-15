@@ -110,10 +110,6 @@
 					<table class="label_tbl">
 		   	<tbody>
 		  		<tr>
-		  			<td>Tratamiento:</td>
-		  			<td><?= $configuracion['NombreTratamiento']; ?></td>
-		  		</tr>
-		  		<tr>
 		  			<td>Descripcion:</td>
 		  			<td><?= $configuracion['Descripcion']; ?></td>
 		  		</tr>

@@ -112,12 +112,12 @@
         <?php } ?>
 <!------------------------------------------------------------------------ Menu Productos ---------------------------------------------------->
 
-<!------------------------------------------------------------------------ Menu Registro Clinico ----------------------------------------------------
+<!------------------------------------------------------------------------ Menu Registro Clinico ---------------------------------------------------->
       
       <?php if(!empty($_SESSION['permisos'][10]['r'])){?>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-folder-o" aria-hidden="true"></i><span class="app-menu__label">Registro Clinico</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-             <li><a class="treeview-item" href="<?= base_url();?>/informe_cita"><i class="icon fa fa-circle-o"></i>Informe de citas</a></li>
+             <li><a class="treeview-item" href="<?= base_url();?>/Informe_cita"><i class="icon fa fa-circle-o"></i>Informe de citas</a></li>
             <li><a class="treeview-item" href="<?= base_url();?>/informe_consulta"><i class="icon fa fa-circle-o"></i>Informe de consultas</a></li>
             <li><a class="treeview-item" href="<?= base_url();?>/informe_ventas"><i class="icon fa fa-circle-o"></i>Informe de ventas</a></li>
             <li><a class="treeview-item" href="<?= base_url();?>/informe_mascotas"><i class="icon fa fa-circle-o"></i>Informe Mascotas</a></li>
