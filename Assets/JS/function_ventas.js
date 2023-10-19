@@ -122,20 +122,82 @@ function generarVenta() {
             http.send();
             http.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-                    //console.log(this.responseText);
                     const res = JSON.parse(this.responseText);
-                    if (res === 'ok') { // Comparar con 'ok'
+                    console.log(this.responseText);
+                    if (res.status === 'ok') {
                         swal("Ingresado", "", "success"); // Mostrar un mensaje de éxito
-                        const ruta = base_url + `/Ventas/generarPdf/`;
+                        const id_venta = res.id_venta; // Obtener el id_venta de la respuesta JSON
+                        const ruta = base_url + '/Ventas/generarPdf/' + id_venta; // Utilizar el id_venta para generar el PDF
                         window.open(ruta);
                         setTimeout(() => {
-                        window.location.reload();
+                            window.location.reload();
                         }, 300);
                     } else {
                         swal("ERROR", "", "error"); // Mostrar un mensaje de error
                     }
+                    
+                    
                 }
             };
         }
     });
 }
+
+$(document).ready(function () {
+    $('#t_historial_v').DataTable({
+        ajax: {
+            url: "Historial/listar_historial",
+            dataSrc: '',
+        },
+        columns: [{
+                'data': 'id'
+            },
+            {
+                'data': 'total'
+            },
+            {
+                'data': 'fecha'
+            },
+            {
+                'data': null,
+                render: function (data, type, row) {
+                    return '<div><a class="btn btn-danger" href="' + "Ventas/generarPdf/" + row.id + '" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a> ' +
+                           '<a class="btn btn-danger delete-sale" data-id="' + row.id + '"><i class="fas fa-trash"></i> Eliminar</a></div>';
+                }
+            }
+        ]
+    });
+
+    // Agregar evento click al botón de eliminar
+    $('#t_historial_v').on('click', '.delete-sale', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+
+        if (confirm("¿Estás seguro de que deseas eliminar este registro?")) {
+            eliminarRegistro(id);
+        }
+    });
+});
+
+// Función para eliminar el registro en el servidor mediante una solicitud AJAX
+function eliminarRegistro(id) {
+    $.ajax({
+        url: "Historial/delHistorial/" + id,
+        type: "POST",
+        dataType: "json",
+        success: function (response) {
+            if (response.status) {
+                // Registro eliminado con éxito, puedes recargar la tabla de DataTables para actualizarla
+                $('#t_historial_v').DataTable().ajax.reload();
+            } else {
+                alert("Error al eliminar el registro: " + response.msg);
+            }
+        },
+        error: function (xhr, status, error) {
+            alert("Error en la solicitud AJAX. Consulta la consola para obtener más información.");
+        }
+    });
+}
+
+
+

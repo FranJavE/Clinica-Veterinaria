@@ -15,6 +15,8 @@
 
         public function Ventas()
 		{
+			
+
 			if(empty($_SESSION['PermisosMod']['r'])){
 				header("Location:".base_url().'/Dashboard');
 			}
@@ -22,6 +24,12 @@
 			$data['Titulo_pagina'] = "VENTAS <small>Tienda Virtual</small>";
 			$data['Nombre_pagina'] = "ventas";
 			$data['page_functions_js'] = "function_ventas.js";
+			$this->views->getViews($this,"Ventas",$data);
+		}
+
+		public function VentasClientes()
+		{
+			$data = $this->modelo->getNomClientes();
 			$this->views->getViews($this,"Ventas",$data);
 		}
 
@@ -80,70 +88,79 @@
 				$this->modelo->registrarVenta($total['total']);
 				$detalle = $this->modelo->getDetalle($idUsuario);
 				$id_venta = $this->modelo->id_venta();
-				foreach ($detalle as $row){
+				foreach ($detalle as $row) {
 					$cantidad = $row['cantidad'];
 					$precio = $row['precio'];
 					$id_pro = $row['id_producto'];
 					$sub_total = $cantidad * $precio;
-                  $this->modelo->registrarDetalleVenta($id_venta['id'], $id_pro, $cantidad, $precio, $sub_total);
-				  $this->modelo->vaciarDetalle($idUsuario);
+					$this->modelo->registrarDetalleVenta($id_venta['id'], $id_pro, $cantidad, $precio, $sub_total);
+					$stock_actual = $this->modelo->getProductos($id_pro);
+					$stock =  $stock_actual['stock'] - $cantidad;
+					$this->modelo->actualizarStock($stock, $id_pro);
+					$this->modelo->vaciarDetalle($idUsuario);
 				}
-				$msg = 'ok';
-
+				$response = [
+					'status' => 'ok',
+					'id_venta' => $id_venta['id'] // Agregar el id_venta a la respuesta JSON
+				];
 			} catch (Exception $e) {
-				$msg = 'error';
+				$response = [
+					'status' => 'error',
+					'message' => $e->getMessage()
+				];
 			}
 		
-			echo json_encode($msg);
+			echo json_encode($response);
 			die();
 		}
+		
 
 		public function generarPdf($id_venta)
 		{
+			$id_venta = (int) $id_venta;
 			$productos = $this->modelo->getProVenta($id_venta);
-
+		
 			require('Libraries/fpdf/fpdf.php');
-
+		
 			$pdf = new FPDF('P','mm', array(80, 200));
 			$pdf->AddPage();
 			$pdf->SetMargins(2, 0, 0);
-			$pdf->SetTitle('Reporte de Venta');
-			$pdf->SetFont('Arial','B',12);
-			$pdf->Cell(60,10, utf8_decode('Clinica Veterinaria Vet Amigos'));
-            
-			$pdf->Ln(); // Agregar un salto de línea
-			$pdf->SetFont('Arial', 'B', 8);
-			$pdf->Cell(60, 10, 'Telefono : 22600525');
+		
+			// Encabezado
+			$pdf->SetFont('Arial', 'B', 12);
+			$pdf->Cell(60, 10, utf8_decode('Clinica Veterinaria Vet Amigos'), 0, 1, 'C');
 
-			$pdf->Ln(); // Agregar un salto de línea
-			$pdf->SetFont('Arial', 'B', 8);
-            $pdf->Cell(60, 10, 'Direcionn : barrio san judas');
-
-			//Productos
 			$pdf->Ln();
+			$pdf->SetFont('Arial', 'B', 8);
 			$pdf->Cell(15, 5, 'Cant', 0, 0, 'L');
 			$pdf->Cell(30, 5, 'Descripcion', 0, 0, 'L');
 			$pdf->Cell(15, 5, 'Precio', 0, 0, 'L');
 			$pdf->Cell(10, 5, 'Sub total', 0, 1, 'L');
-
-            foreach ($productos as $row) {
+		
+			$pdf->SetFont('Arial', '', 8);
+			foreach ($productos as $row) {
 				$pdf->Cell(15, 5, $row['cantidad'], 0, 0, 'L');
-				$pdf->Cell(30, 5, $row['Descripcion'], 0, 0, 'L');
+				$descripcionX = $pdf->GetX(); 
+				$descripcionY = $pdf->GetY(); 
+				$pdf->MultiCell(30, 5, $row['Descripcion'], 0, 'J');
+				$pdf->setXY($descripcionX, $descripcionY); 
+				
+				$precioX = $descripcionX + 35; 
+				$pdf->setX($precioX); 
 				$pdf->Cell(15, 5, $row['precio'], 0, 0, 'L');
+				
+				$cantidadX = $precioX + 20; 
+				$pdf->setX($cantidadX);
 				$pdf->Cell(10, 5, $row['cantidad'] * $row['precio'], 0, 1, 'L');
-
+			
+	
+				$pdf->ln(10);
 			}
-			
-			
-
-
+		
 			$pdf->Output();
 		}
-
-		public function historial()
-		{
-           $this->views->getViews($this, "Facturas");
-		}
+		
+		
 		
     }
 
