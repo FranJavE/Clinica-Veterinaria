@@ -27,7 +27,6 @@
                 <table class="table table-hover table-bordered" id="tableUsuarios">
                   <thead>
                     <tr>
-                      <th>id_rol</th>
                       <th>Nombres</th>
                       <th>Apellidos</th>
                       <th>Email</th>

@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function(){
             
             {"data":"NombrePersona"},
             {"data":"NombreMascota"},
-            {"data":"NombreEspecie"},
             {"data":"Descripcion"},
             {"data":"fechacita"},
             {"data":"Hora"},

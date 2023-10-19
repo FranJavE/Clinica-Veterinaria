@@ -30,7 +30,6 @@
                     <tr>
                       <th>Identificacion</th>
                       <th>Nombres</th>
-                      <th>Apellidos</th>
                       <th>Email</th>
                       <th>Telefono</th>
                       <th>Direccion</th>

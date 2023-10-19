@@ -32,7 +32,6 @@
                       <th>Dueño</th>
                       <th>Paciente</th>
                       <th>Especie</th>
-                      <th>Tratamiento</th>
                       <th>Medico</th>                 
                       <th>Fecha</th>
                       <th>Hora</th>

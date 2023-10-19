@@ -29,7 +29,7 @@
 		}*/
 
 
-		$query = mysqli_query($conexion,"SELECT c.id_Consulta,concat(p.Nombre,' ', p.Apellido) as 'Dueño', m.Nombre as 'NombreMascota', me.NombreMedico, e.NombreEspecie,r.NombreRaza, c.Descripcion, c.fechaconsulta, c.hora, t.NombreTratamiento,c.Precio, c.status, t.id_tratamiento,me.id_medico, m.id_mascota, p.id_persona
+		$query = mysqli_query($conexion,"SELECT c.id_Consulta,concat(p.Nombre,' ', p.Apellido) as 'Dueño', m.Nombre as 'NombreMascota', me.NombreMedico, e.NombreEspecie,r.NombreRaza, c.Descripcion, c.fechaconsulta, c.hora,c.Precio, c.status,me.id_medico, m.id_mascota, p.id_persona
 				FROM tbl_consultas c
 				INNER JOIN tbl_mascota m
 				ON c.id_mascota = m.id_mascota
@@ -39,8 +39,6 @@
 				ON r.id_raza = m.id_raza
 				INNER JOIN tbl_especie e 
 				ON e.id_especie = r.id_especie
-				INNER JOIN tbl_tratamiento t 
-				ON t.id_tratamiento = c.id_tratamiento
                 INNER JOIN tbl_medico me 
                 ON me.id_medico = c.id_medico
 				where c.status != 0 and c.id_Consulta = $idConsulta and m.id_mascota = $idMascota");

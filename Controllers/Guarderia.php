@@ -1,5 +1,5 @@
 <?php 
-	//Pagina principal
+	//Pagina principal                
 
 	Class Guarderia extends Controllers{
 

@@ -30,7 +30,7 @@
 		public function setConsultas(){
 			if($_POST){
 				//dep($_POST);
-				if(empty($_POST['listPaciente']) || empty($_POST['listMedicoId']) || empty($_POST['listTratamiento']) || 
+				if(empty($_POST['listPaciente']) || empty($_POST['listMedicoId']) || 
 					empty($_POST['txtDescripcion']) || empty($_POST['txtFecha']) || empty($_POST['txtHora']) || empty($_POST['txtPrecio']) )
 				{
 
@@ -40,7 +40,6 @@
 					$idConsulta = intval($_POST['idConsulta']);
 					$intIsPaciente = intval($_POST['listPaciente']);
 					$intIsMedico = intval($_POST['listMedicoId']);
-					$intlistTratamiendo = intval($_POST['listTratamiento']);;
 					$strDescripcion = ucwords(strClean($_POST['txtDescripcion']));
 					$DateFecha = strClean($_POST['txtFecha']);
 					$strHora = strClean($_POST['txtHora']);
@@ -50,12 +49,12 @@
 					{
 						$option = 1;
 						if($_SESSION['PermisosMod']['w']){
-							$request_user = $this->modelo->insertConsulta($intIsPaciente ,$intIsMedico ,$intlistTratamiendo ,$strDescripcion ,$DateFecha ,$strHora ,$intPrecio);
+							$request_user = $this->modelo->insertConsulta($intIsPaciente ,$intIsMedico ,$strDescripcion ,$DateFecha ,$strHora ,$intPrecio);
 						}
 					}else{
 						$option = 2;
 						if($_SESSION['PermisosMod']['u']){
-							 $request_user = $this->modelo->updateConsulta($idConsulta,$intIsPaciente ,$intIsMedico ,$intlistTratamiendo ,$strDescripcion ,$DateFecha ,$strHora ,$intPrecio);
+							 $request_user = $this->modelo->updateConsulta($idConsulta,$intIsPaciente ,$intIsMedico ,$strDescripcion ,$DateFecha ,$strHora ,$intPrecio);
 						}
 					}
 
@@ -113,20 +112,6 @@
 			}
 			die();
 		}
-
-		public function getSelectTratamiento()
-		{
-			$htmlOptions = "";
-			$arrData = $this->modelo->getSelectTratamiento();
-			if(count($arrData) > 0){
-				for ($i=0; $i < count($arrData); $i++){
-					$htmlOptions .= '<option value="'.$arrData[$i]['id_tratamiento'].'">'.$arrData[$i]['NombreTratamiento'].'</options>';
-				}
-			}
-			echo $htmlOptions;
-			die();
-		}
-
 
 			public function getConsulta($idConsulta){
 			if($_SESSION['PermisosMod']['r']){

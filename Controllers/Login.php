@@ -18,7 +18,7 @@
 			
 			$data['page_tag'] = "Clinica Veterinaria"; 
 			//Titulo de la pagina
-			$data['page_title'] = "Clinica Veterinaria Vet Amigos";
+			$data['page_title'] = "Clinica Veterinaria 'El Gato'";
 			$data['page_name'] = "login";
 			//Contenido de la pagina
 			$data['page_function_js'] = "function_login.js";
