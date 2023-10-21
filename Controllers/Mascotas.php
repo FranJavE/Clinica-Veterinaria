@@ -198,6 +198,24 @@
 		die();
 		}
 
+		public function getSelectMascotas()
+		{
+			if($id_Dueno > 0)
+			{
+				//dep($_POST);
+				$htmlOptions = "";
+				$arrData = $this->modelo->selectMascotas();
+				if(count($arrData) > 0){
+					for ($i=0; $i < count($arrData); $i++){
+						$htmlOptions .= '<option value="'.$arrData[$i]['id_mascota'].'">'.$arrData[$i]['Nombre'].'</options>';
+						//$htmlOptions .= '<option value="'.$arrData[$i]['id_raza'].'">'.$arrData[$i]['NombreEspecie'].' | '.$arrData[$i]['NombreRaza'].'</options>';
+					}
+				}
+				echo $htmlOptions;
+			}
+			die();
+		}
+
 
 	}
 ?>

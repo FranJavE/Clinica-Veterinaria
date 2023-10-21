@@ -1,73 +1,82 @@
 <?php
+require('../../Libraries/fpdf/fpdf.php');
+require('../../Libraries/fpdf/fpdf_easytable.php');
 
-	//print_r($_REQUEST);
-	//exit;
-	//echo base64_encode('2');
-	//exit;
-	session_start();
-	if (empty($_SESSION['login'])) {
-		header('Location: '.base_url().'/login');
-	}
+class PDF extends FPDF
+{
+function Header()
+{
+// Encabezado personalizado
+$this->SetFont('Arial', 'B', 12);
+$this->Cell(190, 10, 'Informe de Consultas Clinica Veterinaria El Gato', 0, 1, 'C');
+}
 
-	include "../../conex.php";
-	require_once '../../Libraries/dompdf/autoload.inc.php';
-	require_once 'pdf/vendor/autoload.php';
-	use Dompdf\Dompdf;
+function Footer()
+{
+    $this->SetY(-15);
+    $this->SetFont('Arial', 'I', 8);
+    $this->Cell(0, 10, 'Página ' . $this->PageNo(), 0, 0, 'C');
+}
 
-	if (empty($_REQUEST['ma']) || empty($_REQUEST['co'])) {
-		echo "No es posible generar la consulta.";
-	} else {
-		$idMascota = $_REQUEST['ma'];
-		$idConsulta = $_REQUEST['co'];
-		$anulada = '';
+function CreateTable($header, $data)
+{
+    foreach ($header as $col) {
+        $this->Cell(40, 7, $col, 1);
+    }
+    $this->Ln();
 
-		/*$query_config   = mysqli_query($conection,0"SELECT * FROM configuracion");
-		$result_config  = mysqli_num_rows($query_config);
-		if($result_config > 0){
-			$configuracion = mysqli_fetch_assoc($query_config);
-		}*/
+    foreach ($data as $row) {
+        $this->Cell(40, 50, $row['Cliente'], 1);
+        $this->Cell(40, 50, $row['Mascota'], 1);
 
+        $html = $row['Descripción'];
+        $this->WriteHTML($html);
 
-		$query = mysqli_query($conecction,"SELECT c.id_Consulta,concat(p.Nombre,' ', p.Apellido) as 'Dueño', m.Nombre as 'NombreMascota',
-		        me.NombreMedico, e.NombreEspecie,r.NombreRaza, c.Descripcion, c.fechaconsulta, c.hora, c.Precio, c.status,
-		       me.id_medico, m.id_mascota, p.id_persona, m.Peso, m.Altura,p.identificacion,p.Direccion,p.Telefono,p.email_user
-				FROM tbl_consultas c
-				INNER JOIN tbl_mascota m
-				ON c.id_mascota = m.id_mascota
-				INNER JOIN tbl_persona p 
-				ON p.id_persona = m.id_persona
-				INNER JOIN tbl_raza r 
-				ON r.id_raza = m.id_raza
-				INNER JOIN tbl_especie e 
-				ON e.id_especie = r.id_especie
-                INNER JOIN tbl_medico me 
-                ON me.id_medico = c.id_medico
-				");
+        $this->Cell(40, 50, $row['Fecha'], 1);
+        $this->Cell(40, 50, $row['Hora'], 1);
+        $this->Ln();
+    }
+}
 
-		$result = mysqli_num_rows($query);
-		if($result > 0){
+}
 
-			$configuracion  = mysqli_fetch_assoc($query);
-			$no_consulta = $configuracion['id_Consulta'];
+$pdf = new PDF();
+$pdf->AddPage();
+$pdf->SetFont('Arial', '', 12);
+$pdf->SetAutoPageBreak(true, 10);
+$pdf->SetTextColor(0, 0, 0);
 
-			ob_start();
-		    include(dirname('__FILE__').'/reporte_informe_consulta.php');
-		    $html = ob_get_clean();
+$html = '<table>
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Mascota</th>
+            <th>Descripción</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Juan Pérez</td>
+            <td>Perro</td>
+            <td>Mi perro está enfermo</td>
+            <td>2023-07-20</td>
+            <td>10:00</td>
+        </tr>
+        <tr>
+            <td>María López</td>
+            <td>Gato</td>
+            <td>Mi gato está comiendo mucho</td>
+            <td>2023-07-21</td>
+            <td>11:00</td>
+        </tr>
+    </tbody>
+</table>';
 
-			// instantiate and use the dompdf class
-			$dompdf = new Dompdf();
-			$options = $dompdf->getOptions();
-			$options->set(array('isRemoteEnabled' => true));
-			$dompdf->setOptions($options);
-			$dompdf->loadHtml($html);
-			// (Optional) Setup the paper size and orientation
-			$dompdf->setPaper('letter', 'portrait');
-			// Render the HTML as PDF
-			$dompdf->render();
-			// Output the generated PDF to Browser
-			$dompdf->stream('consulta_'.$no_consulta.'.pdf',array('Attachment'=>0));
-			exit;
-		}
-	}
+$pdf->WriteHTML($html);
+
+$pdf->Output('Informe_Consultas.pdf', 'D');
+
 
 ?>

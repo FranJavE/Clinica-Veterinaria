@@ -8,14 +8,8 @@
       <div class="app-title">
 
       <form id="formConsulta" name="formConsulta" class= "form-horizontal">
-        <input type="hidden" id="idConsulta" name="idConsulta" value="">
         <h1><i class="fas fa-user-md"></i> <?= $data['Titulo_pagina']; ?>
         <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="listDuenoId">Dueño <span class="required">*</span></label>
-                <select class="form-control" data-live-search="true" id="listDuenoId" name="listDuenoId" onchange="fntMascotas();">
-                </select>
-            </div>
              <div class="form-group col-md-6">
                 <label for="listPaciente">Paciente <span class="required">*</span></label>
                 <select class="form-control" data-live-search="true" id="listPaciente" name="listPaciente">

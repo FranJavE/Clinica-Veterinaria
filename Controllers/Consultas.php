@@ -113,14 +113,12 @@
 			die();
 		}
 
-			public function getConsulta($idConsulta){
-			if($_SESSION['PermisosMod']['r']){
+		public function getConsulta($idConsulta) {
+			if ($_SESSION['PermisosMod']['r']){
 				$idConsulta = intval($idConsulta);
-				if($idConsulta > 0)
-				{
+				if ($idConsulta > 0) {
 					$arrData = $this->modelo->selectConsulta($idConsulta);
-					if (empty($arrData))
-					 {
+					if (empty($arrData)) {
 						$arrResponse = array("status" => false , "msg" => "No se encontraron datos");
 					}else{
 						$arrResponse = array("status" => true, 'data' => $arrData);
