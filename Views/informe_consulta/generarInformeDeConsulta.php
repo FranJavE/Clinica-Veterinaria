@@ -1,82 +1,87 @@
 <?php
-require('../../Libraries/fpdf/fpdf.php');
-require('../../Libraries/fpdf/fpdf_easytable.php');
 
-class PDF extends FPDF
-{
-function Header()
-{
-// Encabezado personalizado
-$this->SetFont('Arial', 'B', 12);
-$this->Cell(190, 10, 'Informe de Consultas Clinica Veterinaria El Gato', 0, 1, 'C');
-}
+	// Incluye la biblioteca DOMPDF
+	include "../../conex.php";
+	require_once '../../Libraries/pdf/vendor/autoload.php';
+	use Dompdf\Dompdf;
+	// Crea una instancia de DOMPDF
+	$dompdf = new Dompdf();
+	$whereMascota = "";
+	$whereFecha = "";
+	$whereHora = "";
+	$ordernarBy = " ";
 
-function Footer()
-{
-    $this->SetY(-15);
-    $this->SetFont('Arial', 'I', 8);
-    $this->Cell(0, 10, 'Página ' . $this->PageNo(), 0, 0, 'C');
-}
 
-function CreateTable($header, $data)
-{
-    foreach ($header as $col) {
-        $this->Cell(40, 7, $col, 1);
-    }
-    $this->Ln();
+	if (!empty($_GET['idMascota'])) {
+		$mascota = $_GET['idMascota'];
+		if ($mascota > 0) {
+			$whereMascota = "AND  m.id_mascota = " .$mascota;
+		}
+	}
 
-    foreach ($data as $row) {
-        $this->Cell(40, 50, $row['Cliente'], 1);
-        $this->Cell(40, 50, $row['Mascota'], 1);
+	if (!empty($_GET['fecha'])) {
+		$fecha = $_GET['fecha'];
+		$whereFecha = "AND  c.fechaconsulta = " .$fecha;
+	}
 
-        $html = $row['Descripción'];
-        $this->WriteHTML($html);
+	if (!empty($_GET['hora'])) {
+		$hora = $_GET['hora'];
+		$whereHora = "AND  c.hora = " .$hora;
+	}
 
-        $this->Cell(40, 50, $row['Fecha'], 1);
-        $this->Cell(40, 50, $row['Hora'], 1);
-        $this->Ln();
-    }
-}
+	if (!empty($_GET['ordernarPor'])) {
+		$ordernarPor = $_GET['ordernarPor'];
+		if ($ordernarPor == 1) {
+			$ordernarBy = "ORDER BY Dueño, NombreMascota, fechaconsulta DESC, hora";
+		} else if ($ordernarPor == 2) {
+			$ordernarBy = "ORDER BY NombreMascota ASC, Dueño , fechaconsulta DESC, hora";
+		} else if ($ordernarPor == 3) {
+			$ordernarBy = "ORDER BY fechaconsulta DESC, Dueño, NombreMascota, hora";
+		} else if ($ordernarPor == 4) {
+			$ordernarBy = "ORDER BY fechaconsulta ASC, Dueño, NombreMascota, hora";
+		}
+	}
 
-}
 
-$pdf = new PDF();
-$pdf->AddPage();
-$pdf->SetFont('Arial', '', 12);
-$pdf->SetAutoPageBreak(true, 10);
-$pdf->SetTextColor(0, 0, 0);
 
-$html = '<table>
-    <thead>
-        <tr>
-            <th>Cliente</th>
-            <th>Mascota</th>
-            <th>Descripción</th>
-            <th>Fecha</th>
-            <th>Hora</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Juan Pérez</td>
-            <td>Perro</td>
-            <td>Mi perro está enfermo</td>
-            <td>2023-07-20</td>
-            <td>10:00</td>
-        </tr>
-        <tr>
-            <td>María López</td>
-            <td>Gato</td>
-            <td>Mi gato está comiendo mucho</td>
-            <td>2023-07-21</td>
-            <td>11:00</td>
-        </tr>
-    </tbody>
-</table>';
+	$query = mysqli_query($conecction,"SELECT c.id_Consulta,concat(p.Nombre,' ', p.Apellido) as 'Dueño', m.Nombre as 'NombreMascota',
+	            me.NombreMedico, e.NombreEspecie,r.NombreRaza, c.Descripcion, c.fechaconsulta, c.hora,c.Precio,
+	            c.status,me.id_medico, m.id_mascota, p.id_persona, m.Peso, m.Altura,p.identificacion,p.Direccion,p.Telefono,p.email_user
+				FROM tbl_consultas c
+				INNER JOIN tbl_mascota m
+				ON c.id_mascota = m.id_mascota
+				INNER JOIN tbl_persona p 
+				ON p.id_persona = m.id_persona
+				INNER JOIN tbl_raza r 
+				ON r.id_raza = m.id_raza
+				INNER JOIN tbl_especie e 
+				ON e.id_especie = r.id_especie
+                INNER JOIN tbl_medico me 
+                ON me.id_medico = c.id_medico
+				where c.status != 0
+				$whereMascota
+				$whereFecha
+				$whereHora
+				$ordernarBy
+");
 
-$pdf->WriteHTML($html);
+	$result = mysqli_num_rows($query);
+	if ($result >= 0) {
+		ob_start();
+		include(dirname('__FILE__').'/reporte_informe_consulta.php');
+		$html = ob_get_clean();
 
-$pdf->Output('Informe_Consultas.pdf', 'D');
+		// instantiate and use the dompdf class
+		$dompdf = new Dompdf();
 
+		$dompdf->loadHtml($html);
+		// (Optional) Setup the paper size and orientation
+		$dompdf->setPaper('letter', 'portrait');
+		// Render the HTML as PDF
+		$dompdf->render();
+		// Output the generated PDF to Browser
+		$dompdf->stream('Informe de consulta.pdf',array('Attachment'=>0));
+		exit;
+	}
 
 ?>

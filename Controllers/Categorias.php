@@ -31,14 +31,13 @@
 				/*dep($_POST);
 				dep($_FILES);
 				exit();*/
-				if(empty($_POST['txtNombre']) || empty($_POST['txtDescripcion']) || empty($_POST['listStatus']) )
-				{
+				if(empty($_POST['txtNombre']) || empty($_POST['txtDescripcion']) || empty($_POST['listStatus']) ) {
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-				}else{
+				} else {
 					
 					$intIdcategoria = intval($_POST['idCategoria']);
 					$strCategoria =  strClean($_POST['txtNombre']);
-					$strDescipcion = strClean($_POST['txtDescripcion']);
+					$ = strClean($_POST['txtDescripcion']);
 					$intStatus = intval($_POST['listStatus']);
 
 					$ruta = strtolower(clear_cadena($strCategoria));

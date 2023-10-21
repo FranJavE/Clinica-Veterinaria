@@ -21,19 +21,18 @@
             font-size: 18px;
         }
 
+        /* Centrar el encabezado horizontalmente y verticalmente */
         .header {
             text-align: center;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: white;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
-    <div>
     <table>
+        <tr>
+            <th colspan="5" class="header">INFORME DE CONSULTAS</th>
+        </tr>
         <tr>
             <th>Cliente</th>
             <th>Mascota</th>
@@ -42,24 +41,20 @@
             <th>Hora</th>
         </tr>
         <?php
-			if($result > 0) {
-				while ($row = mysqli_fetch_assoc($query)) {
-		?>
+            if($result > 0) {
+                while ($row = mysqli_fetch_assoc($query)) {
+        ?>
         <tr>
-			<td><?= $row['Dueño']; ?></td>
+            <td><?= $row['Dueño']; ?></td>
             <td><?= $row['NombreMascota']; ?></td>
-			<td><?= $row['Descripcion']; ?></td>
-			<td><?= $row['fechaconsulta']; ?></td>
-			<td><?= $row['hora']; ?></td>
+            <td><?= $row['Descripcion']; ?></td>
+            <td><?= $row['fechaconsulta']; ?></td>
+            <td><?= $row['hora']; ?></td>
         </tr>
         <?php
                 }
             }
         ?>
-
-        <!-- Puedes agregar más filas según sea necesario -->
     </table>   
-    </div>
-
 </body>
 </html>

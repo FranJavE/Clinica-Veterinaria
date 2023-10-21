@@ -9,7 +9,7 @@
       </div>
       <ul class="app-menu">
         <?php if(!empty($_SESSION['permisos'][1]['r'])){?>
-        <li><a class="app-menu__item" href="Dashboard"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
+        <li><a class="app-menu__item" href="Dashboard"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Inicio</span></a></li>
       <?php } ?>
 
 <!------------------------------------------------------------------------ Menu Usuario ---------------------------------------------------->
@@ -26,11 +26,13 @@
 <!------------------------------------------------------------------------ Menu Usuario ---------------------------------------------------->
 <!------------------------------------------------------------------------ Menu Cliente ---------------------------------------------------->
       <?php if(!empty($_SESSION['permisos'][9]['r'])){?>
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-users" aria-hidden="true"></i><span class="app-menu__label">Clientes</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+<!--         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-users" aria-hidden="true"></i><span class="app-menu__label">Clientes</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="<?= base_url();?>/Clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
           </ul>
-        </li>
+        </li> -->
+        <li><a class="app-menu__item" href="<?= base_url();?>/Clientes"><i class="app-menu__icon fa fa-users" aria-hidden="true"></i><span class="app-menu__label">Clientes</span></a>
+
         <?php } ?>
 <!------------------------------------------------------------------------ Menu Clientes ---------------------------------------------------->
 <!------------------------------------------------------------------------ Menu Mascotas ---------------------------------------------------->
@@ -58,7 +60,7 @@
         <?php if(!empty($_SESSION['permisos'][5]['r'])){?>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fas fa-book" ></i><span class="app-menu__label">Consultas</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="<?= base_url();?>/Tratamientos"><i class="icon fa fa-circle-o"></i>Tratamientos</a></li>
+           <!--  <li><a class="treeview-item" href="<?= base_url();?>/Tratamientos"><i class="icon fa fa-circle-o"></i>Tratamientos</a></li> -->
             <li><a class="treeview-item" href="<?= base_url();?>/Consultas"><i class="icon fa fa-circle-o"></i>Consultas</a></li>
           </ul>
         </li>
@@ -125,7 +127,9 @@
           </ul>
         </li>
         <?php } ?>
-<---------------------------------------------------------------------- Salir ---------------------------------------------------->
+<!------------------------------------------------------------------------ Menu Productos ---------------------------------------------------->
+
+<!---------------------------------------------------------------------- Salir ---------------------------------------------------->
  <li><a class="app-menu__item" href="<?= base_url();?>/Logout?>
 <?= $_SESSION['userData']['NombreRol']; ?>"><i class="app-menu__icon fas fa-sign-out-alt"></i><span class="app-menu__label">Salir</span></a></li>
       </ul>
