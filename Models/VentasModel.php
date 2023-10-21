@@ -98,10 +98,19 @@ Class VentasModel extends Mysql
 
     }
 
-    public function getProVenta(string $id_venta)
+    public function getProVenta(int $id_venta)
     {
-        $sql = "SELECT v.*, d.*, p.id_producto, p.Descripcion FROM tbl_ventas v INNER JOIN tbl_venta_detalle d ON v.id = d.id_venta INNER JOIN tbl_producto p ON p.id_producto = d.id_producto WHERE v.id = '$id_venta'";
+        $sql = "SELECT v.*, d.*, p.id_producto, p.Descripcion FROM tbl_ventas v INNER JOIN tbl_venta_detalle d ON v.id = d.id_venta INNER JOIN tbl_producto p ON p.id_producto = d.id_producto WHERE v.id = $id_venta";
         $data = $this->select_all($sql);
+        return $data;
+    }
+
+    public function actualizarStock(int $cantidad, int $id_pro)
+    {
+        $sql = "UPDATE tbl_producto SET stock = ? WHERE id_producto = ?";
+        $datos = array($cantidad, $id_pro);
+        $data = $this->insert($sql, $datos);
+
         return $data;
     }
 
