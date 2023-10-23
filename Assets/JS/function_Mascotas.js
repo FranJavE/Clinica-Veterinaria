@@ -126,8 +126,7 @@ function fntEspecie(){
     }
 
 }
-function fntRaza()
-{   
+function fntRaza() {   
     let intlistEspecieId = document.querySelector('#listEspecieId').value;
     let ajaxUrl = base_url+'/Mascotas/getSelectRaza/'+intlistEspecieId;
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');

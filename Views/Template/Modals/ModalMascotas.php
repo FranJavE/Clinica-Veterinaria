@@ -22,15 +22,15 @@
 				</div>
 				  <div class="form-row">
 				  	<div class="form-group col-md-6">
-                    <label for="listEspecieId">Especie  <span class="required">*</span></label>
-                    <select class="form-control" data-live-search="true" id="listEspecieId" name="listEspecieId" onchange="fntRaza();" required >
-                    </select>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="listRazaid">Raza  <span class="required">*</span></label>
-                    <select class="form-control" data-live-search="true" id="listRazaid" name="listRazaid" required >
-                    </select>
-                </div>
+                    	<label for="listEspecieId">Especie  <span class="required">*</span></label>
+                    	<select class="form-control" data-live-search="true" id="listEspecieId" name="listEspecieId" onchange="fntRaza();" required >
+                    	</select>
+                	</div>
+                	<div class="form-group col-md-6">
+                    	<label for="listRazaid">Raza  <span class="required">*</span></label>
+                    	<select class="form-control" data-live-search="true" id="listRazaid" name="listRazaid" required >
+                   		</select>
+                	</div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">

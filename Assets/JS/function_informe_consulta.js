@@ -8,7 +8,6 @@ function fntImprimirConsulta(idTipoInforme) {
     var fechaConsulta = document.getElementById("txtFecha").value;
     var HoraConsulta = document.getElementById("txtHora").value;
     var ordernarPor = document.getElementById("ordernarPor").value;
-    alert(ordernarPor);
     generarPDF(idMascota,fechaConsulta,HoraConsulta,ordernarPor);
 }
 
