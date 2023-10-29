@@ -57,10 +57,10 @@ Class VentasModel extends Mysql
         }
     }
 
-    public function registrarVenta(string $total)
+    public function registrarVenta(string $id_cliente, string $total)
     {
-        $sql ="INSERT INTO tbl_ventas (total) VALUES (?)";
-        $datos = array($total);
+        $sql ="INSERT INTO tbl_ventas (id_cliente, total) VALUES (?,?)";
+        $datos = array($id_cliente, $total);
         $data = $this->insert($sql, $datos);
         
         if ($data === false) {
@@ -111,6 +111,20 @@ Class VentasModel extends Mysql
         $datos = array($cantidad, $id_pro);
         $data = $this->insert($sql, $datos);
 
+        return $data;
+    }
+
+    public function getNomClientes()
+    {
+        $sql = "SELECT * FROM tbl_persona WHERE status = 1 AND id_rol = 3";
+        $data = $this->select_all($sql);
+        return $data;
+    }
+
+    public function getClientes(int $id) 
+    {
+        $sql = "SELECT v.id, v.id_cliente, c.* FROM tbl_ventas v INNER JOIN tbl_persona c ON c.id_persona = v.id_cliente WHERE v.id = $id";
+        $data = $this->select($sql);
         return $data;
     }
 

@@ -12,6 +12,25 @@
           <li class="breadcrumb-item"><a href="<?= base_url(); ?>/Ventas"><?= $data['Titulo_pagina']; ?></a></li>
         </ul>
       </div>
+      <div class="card">
+            <div class="card-body">
+                <form method="post">
+                    <div class="row">
+                        <div class="col-md-4">
+            <div class="form-group">
+              <label for="cliente">Clientes Activos</label>
+              <select id="cliente" class="form-control" name="cliente" onchange="habilitarBoton()">
+    <option value="">Selecciona un cliente</option>
+    <?php
+    foreach ($data['clientes'] as $cliente) {
+        echo "<option value='{$cliente['id_persona']}'>{$cliente['Nombre']} {$cliente['Apellido']}</option>";
+    }
+    ?>
+</select>
+            </div>
+                </form>
+            </div>
+        </div>
         <div class="card">
           <div class="card-header bg-primary text-white">
             <h4>Nueva Venta</h4>
@@ -74,7 +93,7 @@
                 <div class="form-group">
                     <label for="total" class="font-weight-bold">Total a pagar</label>
                     <input id="total" class="form-control" type="text" name="total" placeholder="Total a pagar" disabled>
-                    <button class="btn btn-primary mt-2 btn-block" type="button" onclick="generarVenta()"> Generar Venta </button>
+                    <button class="btn btn-primary mt-2 btn-block" type="button" onclick="generarVenta()" id="botonGenerarVenta" disabled>Generar Venta</button>
              </div>
         </div>
     </div>

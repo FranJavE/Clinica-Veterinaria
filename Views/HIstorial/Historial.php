@@ -18,6 +18,7 @@
     <thead class="thead-dark">
           <tr>
             <th></th>
+            <th>Cliente</th>
             <th>Total</th>
             <th>Fecha venta</th>
             <th>Acciones</th>

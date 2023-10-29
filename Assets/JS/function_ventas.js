@@ -97,13 +97,25 @@ function deleteDetalle(id) {
         } else {
             alert("Error al eliminar el producto");
         }
-        cargarDetalle(); // Esta función debería cargarse en ambos casos para actualizar la interfaz.
+        // cargarDetalle(); // Esta función debería cargarse en ambos casos para actualizar la interfaz.
     })
     .catch(error => {
         console.error("Error en la solicitud:", error);
         // Manejar errores de red u otros errores aquí.
     });
 }
+
+function habilitarBoton() {
+    var selectCliente = document.getElementById('cliente');
+    var botonGenerarVenta = document.getElementById('botonGenerarVenta');
+    
+    if (selectCliente.value !== "") {
+        botonGenerarVenta.removeAttribute('disabled');
+    } else {
+        botonGenerarVenta.setAttribute('disabled', 'disabled');
+    }
+}
+
 function generarVenta() {
     swal({
         title: "Generar venta",
@@ -116,7 +128,9 @@ function generarVenta() {
         closeOnCancel: true
     }, function (isConfirm) {
         if (isConfirm) {
-            const url = base_url + "/Ventas/registrarVenta/";
+            const id_cliente = document.getElementById('cliente').value;
+            const url = base_url + "/Ventas/registrarVenta/" + id_cliente;
+            console.log("Valor de id_cliente:", id_cliente); // Agregar esta línea
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
@@ -153,6 +167,9 @@ $(document).ready(function () {
                 'data': 'id'
             },
             {
+                'data': 'NombreCompleto'
+            },
+            {
                 'data': 'total'
             },
             {
@@ -168,36 +185,47 @@ $(document).ready(function () {
         ]
     });
 
-    // Agregar evento click al botón de eliminar
     $('#t_historial_v').on('click', '.delete-sale', function (e) {
         e.preventDefault();
         var id = $(this).data('id');
 
-        if (confirm("¿Estás seguro de que deseas eliminar este registro?")) {
             eliminarRegistro(id);
-        }
     });
 });
 
-// Función para eliminar el registro en el servidor mediante una solicitud AJAX
 function eliminarRegistro(id) {
-    $.ajax({
-        url: "Historial/delHistorial/" + id,
-        type: "POST",
-        dataType: "json",
-        success: function (response) {
-            if (response.status) {
-                // Registro eliminado con éxito, puedes recargar la tabla de DataTables para actualizarla
-                $('#t_historial_v').DataTable().ajax.reload();
-            } else {
-                alert("Error al eliminar el registro: " + response.msg);
-            }
-        },
-        error: function (xhr, status, error) {
-            alert("Error en la solicitud AJAX. Consulta la consola para obtener más información.");
+    swal({
+        title: "¿Estás seguro?",
+        text: "Esta acción no se puede deshacer.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    }, function (isConfirm) {
+        if (isConfirm) {
+            $.ajax({
+                url: "Historial/delHistorial",
+                type: "POST",
+                data: { idHistorial: id },
+                dataType: "json",
+                success: function (response) {
+                    if (response.status) {
+                        swal("Eliminado", "El registro se ha eliminado con éxito.", "success");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 300);
+                    } else {
+                        swal("Error", "Error al eliminar el registro: " + response.msg, "error");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText);
+                    swal("Error", "Error al eliminar el registro: " + xhr.responseJSON.msg, "error");
+                }
+                
+            });
         }
     });
 }
-
-
-

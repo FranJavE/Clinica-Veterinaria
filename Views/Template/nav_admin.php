@@ -125,7 +125,6 @@
           </ul>
         </li>
         <?php } ?>
-<---------------------------------------------------------------------- Salir ---------------------------------------------------->
  <li><a class="app-menu__item" href="<?= base_url();?>/Logout?>
 <?= $_SESSION['userData']['NombreRol']; ?>"><i class="app-menu__icon fas fa-sign-out-alt"></i><span class="app-menu__label">Salir</span></a></li>
       </ul>

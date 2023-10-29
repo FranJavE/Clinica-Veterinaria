@@ -13,10 +13,8 @@
 			getPermisos(4);
 		}
 
-        public function Ventas()
+		public function Ventas()
 		{
-			
-
 			if(empty($_SESSION['PermisosMod']['r'])){
 				header("Location:".base_url().'/Dashboard');
 			}
@@ -24,9 +22,10 @@
 			$data['Titulo_pagina'] = "VENTAS <small>Tienda Virtual</small>";
 			$data['Nombre_pagina'] = "ventas";
 			$data['page_functions_js'] = "function_ventas.js";
-			$this->views->getViews($this,"Ventas",$data);
+			$data['clientes'] = $this->modelo->getNomClientes();
+			$this->views->getViews($this, "Ventas", $data);
 		}
-
+		
 		public function VentasClientes()
 		{
 			$data = $this->modelo->getNomClientes();
@@ -80,12 +79,12 @@
 			die();
 		}
 
-		public function registrarVenta()
+		public function registrarVenta($id_cliente)
 		{
 			$idUsuario = $_SESSION['idUser'];
 			try {
 				$total = $this->modelo->calcularVenta($idUsuario);
-				$this->modelo->registrarVenta($total['total']);
+				$this->modelo->registrarVenta($id_cliente, $total['total']);
 				$detalle = $this->modelo->getDetalle($idUsuario);
 				$id_venta = $this->modelo->id_venta();
 				foreach ($detalle as $row) {
@@ -101,7 +100,7 @@
 				}
 				$response = [
 					'status' => 'ok',
-					'id_venta' => $id_venta['id'] // Agregar el id_venta a la respuesta JSON
+					'id_venta' => $id_venta['id']
 				];
 			} catch (Exception $e) {
 				$response = [
@@ -119,6 +118,7 @@
 		{
 			$id_venta = (int) $id_venta;
 			$productos = $this->modelo->getProVenta($id_venta);
+			$clientes = $this->modelo->getClientes($id_venta);
 		
 			require('Libraries/fpdf/fpdf.php');
 		
@@ -129,6 +129,7 @@
 			// Encabezado
 			$pdf->SetFont('Arial', 'B', 12);
 			$pdf->Cell(60, 10, utf8_decode('Clinica Veterinaria Vet Amigos'), 0, 1, 'C');
+			// $pdf->Cell(10, 5, $clientes['Nombre'], 0, 0, 'L');
 
 			$pdf->Ln();
 			$pdf->SetFont('Arial', 'B', 8);
@@ -159,6 +160,8 @@
 		
 			$pdf->Output();
 		}
+		
+		
 		
 		
 		

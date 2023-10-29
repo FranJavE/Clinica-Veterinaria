@@ -30,30 +30,22 @@
 			$data = $this->modelo->getHistorialventas();
 			echo json_encode($data, JSON_UNESCAPED_UNICODE);
 			die();
-		}
+		}		
 
 		public function delHistorial()
 		{
-				if($_POST){
-					$intidHistorial = intval($_POST['idHistorial']);
-					$requestDelete = $this->modelo->deleteHistorial($intidHistorial);
-						if($requestDelete)
-						{
-							$arrResponse = array("status" => true , "msg" => "Se ha eliminado el registro");
-
-
-						}else{
-							$arrResponse = array("status" => false , "msg" => "Error al eliminar el registro");
-
-						}
-						echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+			if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+				$intidHistorial = intval($_POST['idHistorial']);
+				$requestDelete = $this->modelo->deleteHistorial($intidHistorial);
+				if ($requestDelete) {
+					$arrResponse = array("status" => true, "msg" => "Se ha eliminado el registro");
+				} else {
+					$arrResponse = array("status" => false, "msg" => "Error al eliminar el registro");
 				}
-		die();
+				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+			}
 		}
-		
 
-
-		
     }
 
  ?>
