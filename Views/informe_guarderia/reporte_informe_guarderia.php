@@ -31,14 +31,17 @@
 <body>
     <table>
         <tr>
-            <th colspan="6" class="header">INFORME DE CONSULTAS</th>
+            <th colspan="9" class="header">INFORME DE GUARDERIA</th>
         </tr>
         <tr>
             <th>Cliente</th>
             <th>Mascota</th>
+            <th>Jaula</th>
             <th>Descripción</th>
-            <th>Fecha</th>
-            <th>Hora</th>
+            <th>Fecha Llegada</th>
+            <th>Hora Llegada</th>
+            <th>Fecha Salida</th>
+            <th>Hora Salida</th>
             <th>Precio</th>
         </tr>
         <?php
@@ -48,9 +51,12 @@
         <tr>
             <td><?= $row['Dueño']; ?></td>
             <td><?= $row['NombreMascota']; ?></td>
+            <td><?= $row['Numero_Jaula']; ?></td>
             <td><?= $row['Descripcion']; ?></td>
-            <td><?= $row['fechaconsulta']; ?></td>
-            <td><?= $row['hora']; ?></td>
+            <td><?= $row['fechainicio']; ?></td>
+            <td><?= $row['Hora_lnicio']; ?></td>
+            <td><?= $row['fechafin']; ?></td>
+            <td><?= $row['Hora_salida']; ?></td>
             <td><?= $row['Precio']; ?></td>
         </tr>
         <?php

@@ -15,32 +15,26 @@
 				<p class="text-primary">Todos loss campos son obligatorios</p>
 				<div class="form-row">
 				  	<div class="form-group col-md-6">
-                    <label for="listDuenoId">Dueño<span class="required">*</span></label>
-                    <select class="form-control" data-live-search="true" id="listDuenoId" name="listDuenoId" onchange="fntMascotas();" required >
-                    </select>
-                </div>
-                 <div class="form-group col-md-6">
-                    <label for="listPaciente">Paciente<span class="required">*</span></label>
-                    <select class="form-control" data-live-search="true" id="listPaciente" name="listPaciente" required >
-                    </select>
-                </div>
+                    	<label for="listDuenoId">Dueño<span class="required">*</span></label>
+                    	<select class="form-control" data-live-search="true" id="listDuenoId" name="listDuenoId" onchange="fntMascotas();" required >
+                    	</select>
+                	</div>
+                 	<div class="form-group col-md-6">
+                    	<label for="listPaciente">Paciente<span class="required">*</span></label>
+                    	<select class="form-control" data-live-search="true" id="listPaciente" name="listPaciente" required >
+                    	</select>
+                	</div>
                 </div>
                 <div class="form-row">
-				  <div class="form-group col-md-12"><!-- ocupara 6 columnas -->
-				 	<label for="listVacunas">Vacuna<span class="required">*</span></label>
-                    <select class="form-control" data-live-search="true" id="listVacunas" name="listVacunas" required >
-                    </select>
-				</div>
-				</div>
-				  <div class="form-group">
-                <label class="control-label">Descripción Vacuna <span class="required">*</span></label>
-                      <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="2" placeholder="Descripción Vacuna" required=""></textarea>
-                </div>
-				<div class="form-row">
-					<div class="form-group col-md-12"><!-- ocupara 6 columnas -->
-				  <label for="txtPrecio">Precio<span class="required">*</span></label>
-				  <input type="text" class="form-control" id="txtPrecio" name="txtPrecio" required="">
-				</div>
+					<div class="form-group col-md-6"><!-- ocupara 6 columnas -->
+						<label for="listVacunas">Vacuna<span class="required">*</span></label>
+                    	<select class="form-control" data-live-search="true" id="listVacunas" name="listVacunas" required >
+                    	</select>	
+				  	</div>
+				  	<div class="form-group col-md-6"><!-- ocupara 6 columnas -->
+						<label for="txtPrecio">Precio<span class="required">*</span></label>
+						<input type="text" class="form-control" id="txtPrecio" name="txtPrecio" required="">
+				  	</div>
 				</div>
 				<div class="form-row">
 				   <div class="form-group col-md-6">
@@ -52,6 +46,12 @@
 				  <input type="text" class="form-control valid validHora" id="txtHora" name="txtHora" placeholder="hh : mm " required="" onkeypress="return controlhora(event);">
 				</div>
                 </div>
+				  <div class="form-group">
+                <label class="control-label">Descripción Vacuna <span class="required">*</span></label>
+                      <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="2" placeholder="Descripción Vacuna" required=""></textarea>
+                </div>
+
+
  
          
                 <br></br>

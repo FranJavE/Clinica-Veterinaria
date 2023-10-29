@@ -24,8 +24,8 @@
 		}
 		public function selectRol(int $idrol)
 		{
-			$this->intIdRol = $idrol;
-			$sql = "SELECT * FROM tbl_rol where id_rol = $this->intIdRol";
+			$this->intIdrol = $idrol;
+			$sql = "SELECT * FROM tbl_rol where id_rol = $this->intIdrol";
 			//Llamamos a la funcion creada en el crud de MySQL
 			$request = $this->select($sql);
 			//Retornamos el resultado

@@ -31,11 +31,12 @@
 <body>
     <table>
         <tr>
-            <th colspan="6" class="header">INFORME DE CONSULTAS</th>
+            <th colspan="7" class="header">INFORME DE VACUNAS</th>
         </tr>
         <tr>
             <th>Cliente</th>
             <th>Mascota</th>
+            <th>Vacuna</th>
             <th>Descripción</th>
             <th>Fecha</th>
             <th>Hora</th>
@@ -48,9 +49,10 @@
         <tr>
             <td><?= $row['Dueño']; ?></td>
             <td><?= $row['NombreMascota']; ?></td>
+            <td><?= $row['NombreVacuna']; ?></td>
             <td><?= $row['Descripcion']; ?></td>
-            <td><?= $row['fechaconsulta']; ?></td>
-            <td><?= $row['hora']; ?></td>
+            <td><?= $row['fechaVacunacion']; ?></td>
+            <td><?= $row['Hora']; ?></td>
             <td><?= $row['Precio']; ?></td>
         </tr>
         <?php

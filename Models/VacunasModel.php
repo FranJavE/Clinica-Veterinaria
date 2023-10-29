@@ -75,7 +75,8 @@
 
 		public function selectVacunas()
 		{
-			$sql = "SELECT vm.id_VacunacionXMascota,concat(p.Nombre,' ', p.Apellido) as 'Dueño', m.Nombre as 'NombreMascota', e.NombreEspecie,v.NombreVacuna, vm.Descripcion, vm.fechaVacunacion,vm.Hora,vm.Precio ,vm.status
+			$sql = "SELECT vm.id_VacunacionXMascota,concat(p.Nombre,' ', p.Apellido) as 'Dueño', m.Nombre as 'NombreMascota',
+			e.NombreEspecie,v.NombreVacuna, vm.Descripcion, vm.fechaVacunacion,vm.Hora,vm.Precio ,vm.status
 				FROM tbl_vacunaxmascota vm
 				INNER JOIN tbl_mascota m
 				ON vm.id_mascota = m.id_mascota

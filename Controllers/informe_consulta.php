@@ -24,17 +24,6 @@
 			$data['page_functions_js'] = "function_informe_consulta.js";
 			$this->views->getViews($this,"informe_consulta",$data);
 		}
-
-
-	   public function getInformeConsulta($idConsulta) {
-			if(empty($_SESSION['PermisosMod']['r'])) {
-				header('Location: '.base_url().'/Dashboard');
-			}
-			$arrData = $this->modelo->selectConsulta($idConsulta);
-			$data['NombreMascota'] =  $arrData['NombreMascota'];
-			$data['page_functions_js'] = "function_informe_consulta.js";
-			$this->views->getViews($this,"reporte_informe_consulta",$data);
-		}
 		
 	}
 

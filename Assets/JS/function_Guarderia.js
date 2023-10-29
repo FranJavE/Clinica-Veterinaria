@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function(){
  
 window.addEventListener('load', function(){
     fntDueno();
+    fntJaulas();
    // fntGuarderia();
 }, false);
 
@@ -167,6 +168,22 @@ function fntDueno()
            $("#listPaciente").selectpicker('val',request.status);
            $('#listPaciente').selectpicker('refresh');
             //console.log();
+        }
+    }
+}
+
+function fntJaulas() {   
+
+    let ajaxUrl = base_url+'/Jaulas/getSelectJaulas';
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    request.open("GET",ajaxUrl,true);
+    request.send();
+
+    request.onreadystatechange = function(){
+        if(request.readyState == 4 && request.status == 200){
+            document.querySelector('#listJaula').innerHTML = request.responseText;
+            $('#listJaula').selectpicker('refresh');
+            $('#listJaula').selectpicker('render');
         }
     }
 }

@@ -37,7 +37,7 @@
 					
 					$intIdcategoria = intval($_POST['idCategoria']);
 					$strCategoria =  strClean($_POST['txtNombre']);
-					$ = strClean($_POST['txtDescripcion']);
+					$strDescipcion = strClean($_POST['txtDescripcion']);
 					$intStatus = intval($_POST['listStatus']);
 
 					$ruta = strtolower(clear_cadena($strCategoria));

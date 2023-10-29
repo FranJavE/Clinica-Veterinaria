@@ -31,28 +31,28 @@
 <body>
     <table>
         <tr>
-            <th colspan="6" class="header">INFORME DE CONSULTAS</th>
+            <th colspan="6" class="header">INFORME DE PRODUCTOS</th>
         </tr>
         <tr>
-            <th>Cliente</th>
-            <th>Mascota</th>
-            <th>Descripción</th>
-            <th>Fecha</th>
-            <th>Hora</th>
+            <th>Nombre Producto</th>
+            <th>Código</th>
+            <th>Categoria</th>
+            <th>Stock</th>
             <th>Precio</th>
+            <th>Proveedor</th>
         </tr>
         <?php
             if($result > 0) {
                 while ($row = mysqli_fetch_assoc($query)) {
         ?>
-        <tr>
-            <td><?= $row['Dueño']; ?></td>
-            <td><?= $row['NombreMascota']; ?></td>
-            <td><?= $row['Descripcion']; ?></td>
-            <td><?= $row['fechaconsulta']; ?></td>
-            <td><?= $row['hora']; ?></td>
-            <td><?= $row['Precio']; ?></td>
-        </tr>
+                    <tr>
+                        <td><?= $row['Nombre_producto']; ?></td>
+                        <td><?= $row['Codigo']; ?></td>
+                        <td><?= $row['categoria']; ?></td>
+                        <td><?= $row['stock']; ?></td>
+                        <td><?= $row['Precio']; ?></td>
+                        <td><?= $row['Nombre_proveedor']; ?></td>
+                    </tr>   
         <?php
                 }
             }

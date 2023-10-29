@@ -24,6 +24,18 @@
         </li>
         <?php } ?>
 <!------------------------------------------------------------------------ Menu Usuario ---------------------------------------------------->
+<!------------------------------------------------------------------------ Menu Catalogos ---------------------------------------------------->
+<?php if(!empty($_SESSION['permisos'][12]['r'])){?>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-user" aria-hidden="true"></i><span class="app-menu__label">Catalogos</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+          <ul class="treeview-menu">
+           
+            <li><a class="treeview-item" href="<?= base_url();?>/Especies"><i class="icon fa fa-circle-o"></i>Especies</a></li>
+            <li><a class="treeview-item" href="<?= base_url();?>/Razas"><i class="icon fa fa-circle-o"></i>Razas</a></li>
+            <li><a class="treeview-item" href="<?= base_url();?>/Jaulas"><i class="icon fa fa-circle-o"></i>Jaulas</a></li>
+          </ul>
+        </li>
+        <?php } ?>
+<!------------------------------------------------------------------------ Menu Catalogos ---------------------------------------------------->
 <!------------------------------------------------------------------------ Menu Cliente ---------------------------------------------------->
       <?php if(!empty($_SESSION['permisos'][9]['r'])){?>
 <!--         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-users" aria-hidden="true"></i><span class="app-menu__label">Clientes</span><i class="treeview-indicator fa fa-angle-right"></i></a>
@@ -132,6 +144,8 @@
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-folder-o" aria-hidden="true"></i><span class="app-menu__label">Registro Clinico</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="<?= base_url();?>/informe_consulta"><i class="icon fa fa-circle-o"></i>Informe de consultas</a></li>
+            <li><a class="treeview-item" href="<?= base_url();?>/informe_vacunas"><i class="icon fa fa-circle-o"></i>Informe de vacunas</a></li>
+            <li><a class="treeview-item" href="<?= base_url();?>/informe_guarderia"><i class="icon fa fa-circle-o"></i>Informe de guarderia</a></li>
             <li><a class="treeview-item" href="<?= base_url();?>/informe_ventas"><i class="icon fa fa-circle-o"></i>Informe de ventas</a></li>
             <li><a class="treeview-item" href="<?= base_url();?>/informe_mascotas"><i class="icon fa fa-circle-o"></i>Informe Mascotas</a></li>
             <li><a class="treeview-item" href="<?= base_url();?>/informe_producto"><i class="icon fa fa-circle-o"></i>Informe de Producto</a></li>

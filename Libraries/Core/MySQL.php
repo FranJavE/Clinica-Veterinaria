@@ -80,8 +80,7 @@
 	        return $resExecute;
 		}
 		  //Eliminar
-	    public function Delete(string $query)
-		{
+	    public function Delete(string $query) {
 		  		//Alamacenamos el query
 		  		$this->strquery = $query;
 

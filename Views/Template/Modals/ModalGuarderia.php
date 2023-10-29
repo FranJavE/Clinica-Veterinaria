@@ -29,28 +29,19 @@
                     </div>
                     
                 </div>
-                 <div class="col-md-3">
+                 	<div class="col-md-3">
 		              <label for="txtFechallegada">Fecha llegada <span class="required">*</span></label>
 		              <input class="form-control" id="txtFechallegada" name="txtFechallegada" type="date" placeholder="Seleccionar fecha" required="">
-	         	   </div>
+	         	    </div>
 	         		<div class="col-md-3"><!-- ocupara 6 columnas -->
-								  <label for="txtHorallegada">Hora Llegada <span class="required">*</span></label>
-								  <input type="text" class="form-control valid validHora" id="txtHorallegada" name="txtHorallegada" placeholder="hh : mm " required="" onkeypress="return controlhora(event);">
-							</div>
-				 
+						<label for="txtHorallegada">Hora Llegada <span class="required">*</span></label>
+						<input type="text" class="form-control valid validHora" id="txtHorallegada" name="txtHorallegada" placeholder="hh : mm " required="" onkeypress="return controlhora(event);">
+					</div>
                 </div>
           <div class="form-row">
 				  <div class="col-md-6"><!-- ocupara 6 columnas -->
 					 	<label for="listJaula">Jaula <span class="required">*</span></label>
 	                    <select class="form-control" data-live-search="true" id="listJaula" name="listJaula" required >
-	                        <option value="1">Jaula 1</option>
-	                        <option value="2">Jaula 2</option>
-	                        <option value="3">Jaula 3</option>
-	                        <option value="4">Jaula 4</option>
-	                        <option value="5">Jaula 5</option>
-	                        <option value="6">Jaula 6</option>
-	                        <option value="7">Jaula 7</option>
-	                        <option value="8">Jaula 8</option>
 	                    </select>
 					</div>
 				   <div class="col-md-3">
