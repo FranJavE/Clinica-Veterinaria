@@ -16,8 +16,7 @@
 			parent::__construct();
 			
 		}
-		public function insertMascotas($strNombre,$intlistRazaid,$intPeso,$intAltura,$intlistDuenoId,$intStatus)
-		{
+		public function insertMascotas($strNombre,$intlistRazaid,$intPeso,$intAltura,$intlistDuenoId,$intStatus) {
 		    $this->strNombre =$strNombre;
 		    $this->intRaza =$intlistRazaid;
 		    $this->intPeso =$intPeso;
@@ -29,8 +28,7 @@
 			$sql = "SELECT * FROM tbl_mascota where id_persona = $this->intIdCliente and Nombre = '{$this->strNombre}'";
 			$request = $this->select_all($sql);
 
-			if(empty($request))
-			{
+			if (empty($request)) {
 				$query_insert = "INSERT INTO tbl_mascota(Nombre,id_raza,peso,Altura,id_persona,status) VALUES(?,?,?,?,?,?)";
 				$arrData = array($this->strNombre,
 								$this->intRaza,
@@ -40,16 +38,12 @@
 								$this->intStatus);
 				$request_insert = $this->insert($query_insert,$arrData);
 				$return = $request_insert;
-			}else
-			{
+			} else {
 				$return="exist";
 			}
 			return $return;
-
-
 	}
-		public function selectMascotas()
-		{
+		public function selectMascotas() {
 			$sql = "SELECT m.id_mascota,m.Nombre,r.NombreRaza,e.NombreEspecie,m.Peso,m.Altura,concat(p.Nombre,' ', p.Apellido) as 'Dueño',m.status
 			From tbl_mascota m 
 			INNER JOIN tbl_persona p

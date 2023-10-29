@@ -14,8 +14,7 @@
 			parent::__construct();
 			
 		}
-		public function insertcitas(int $intIdPaciente, string $strDescripcion, string $DateFecha,string $strHora)
-		{
+		public function insertcitas(int $intIdPaciente, string $strDescripcion, string $DateFecha,string $strHora) {
 			$this->idPaciente = $intIdPaciente;
 			$this->Descripcion = $strDescripcion;
 			$this->fechacita = $DateFecha;
@@ -24,7 +23,7 @@
 
 			$sql = "SELECT * FROM tbl_citas where fechacita = '{$this->fechacita}' and Hora ='{$this->Hora}' and status =1";
 			$request = $this->select_all($sql);
-			if(empty($request)){
+			if (empty($request)) {
 				$query_insert = "INSERT INTO tbl_citas(id_mascota,Descripcion,fechacita,Hora) VALUES(?,?,?,?)";
 				$arrData = array($this->idPaciente,
 								$this->Descripcion,
@@ -33,13 +32,13 @@
 
 				$request_insert = $this->insert($query_insert,$arrData);
 				$return = $request_insert;
-			}else{
+			} else {
 				$return="exist";
 			}
 			return $return;
 		}
-		public function updatecitas(int $idCita,int $intIdPaciente,string $strDescripcion,string $DateFecha,string $strHora,int $intStatus)
-		{
+		public function updatecitas(int $idCita,int $intIdPaciente,string $strDescripcion,
+		                            string $DateFecha,string $strHora,int $intStatus) {
 			$this->idCita = $idCita;
 		    $this->idPaciente = $intIdPaciente;
 			$this->Descripcion = $strDescripcion;
@@ -65,8 +64,7 @@
 			return $request;
 		}
 
-		public function selectCitas()
-		{
+		public function selectCitas() {
 			$sql = "SELECT c.id_citas,p.id_persona,concat(p.Nombre,' ', p.Apellido) as 'NombrePersona',m.Nombre as 'NombreMascota',e.NombreEspecie,c.Descripcion,c.fechacita,c.Hora, DATEDIFF(c.fechacita,NOW()) as 'CantDias',c.status
 				FROM tbl_citas c 
 				INNER JOIN tbl_mascota m
@@ -81,8 +79,7 @@
 			$request = $this->select_all($sql);
 			return $request;
 		}
-		public function selectCita(int $id_Cita)
-		{
+		public function selectCita(int $id_Cita) {
 			$this->idCita = $id_Cita;
 			$sql = "SELECT c.id_citas,r.NombreRaza,m.id_mascota,p.id_persona,concat(p.Nombre,' ', p.Apellido) as 'NombrePersona',m.Nombre as 'NombreMascota',e.NombreEspecie,c.Descripcion,c.fechacita,c.Hora, DATEDIFF(c.fechacita,NOW()) as 'CantDias',c.status
 				FROM tbl_citas c 
@@ -98,8 +95,7 @@
 			$request = $this->select($sql);
 			return $request;
 		}
-		public function deleteCita(int $idCita)
-		{
+		public function deleteCita(int $idCita) {
 			$this->idCita = $idCita;
 			$sql = "UPDATE tbl_citas SET status = ? WHERE id_citas = $this->idCita";
 			$arrData = array(0);

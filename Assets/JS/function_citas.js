@@ -200,8 +200,7 @@ function fntViewCita(idCita)
             }
           }
   }
-  function fntEditCita(idCita)
-{
+  function fntEditCita(idCita) {
     document.querySelector('#titleModal').innerHTML ="Actualizar Cita";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");

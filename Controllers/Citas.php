@@ -16,8 +16,7 @@
 			getPermisos(4);
 		}
 
-		public function Citas($params)
-		{
+		public function Citas($params) {
 			if(empty($_SESSION['PermisosMod']['r'])) {
 				header('Location: '.base_url().'/Dashboard');
 			}
@@ -35,7 +34,7 @@
 
 						$arrResponse = array("status" => false, "msg" => "Datos incorrectos.");
 
-				}else{
+				} else {
 					$idCita = intval($_POST['idCita']);
 					$intIdPaciente = intval(strClean($_POST['listPaciente']));
 					$strDescripcion = ucwords(strClean($_POST['txtDescripcion']));
@@ -76,8 +75,7 @@
 			die(); 	
 		}
 
-		public function getCitas()
-		 {
+		public function getCitas() {
 		 	if($_SESSION['PermisosMod']['r']){
 				$arrData = $this->modelo->selectCitas();
 				//dep($arrData);
@@ -90,8 +88,7 @@
 						$arrData[$i]['status'] = 4;
 					}else if ($arrData[$i]['CantDias'] < 0 and $arrData[$i]['status'] == 2){
 						$arrData[$i]['CantDias'] = 'Ya vino';
-					}else if($arrData[$i]['status'] > 3)
-					{
+					} else if($arrData[$i]['status'] > 3) {
 						$arrData[$i]['CantDias'] = 'Se cancelo';
 					}
 					if ($arrData[$i]['status'] == 1) {

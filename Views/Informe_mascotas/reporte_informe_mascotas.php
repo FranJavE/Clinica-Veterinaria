@@ -31,26 +31,28 @@
 <body>
     <table>
         <tr>
-            <th colspan="5" class="header">INFORME DE CONSULTAS</th>
+            <th colspan="6" class="header">INFORME DE MASCOTAS</th>
         </tr>
         <tr>
-            <th>Cliente</th>
             <th>Mascota</th>
-            <th>Descripción</th>
-            <th>Fecha</th>
-            <th>Hora</th>
+            <th>Dueño</th>
+            <th>Raza</th>
+            <th>Especie</th>
+            <th>Peso</th>
+            <th>Altura</th>
         </tr>
         <?php
             if($result > 0) {
                 while ($row = mysqli_fetch_assoc($query)) {
         ?>
-        <tr>
-            <td><?= $row['Dueño']; ?></td>
-            <td><?= $row['NombreMascota']; ?></td>
-            <td><?= $row['Descripcion']; ?></td>
-            <td><?= $row['fechaconsulta']; ?></td>
-            <td><?= $row['hora']; ?></td>
-        </tr>
+                    <tr>
+                        <td><?= $row['Nombre']; ?></td>
+                        <td><?= $row['Dueño']; ?></td>
+                        <td><?= $row['NombreRaza']; ?></td>
+                        <td><?= $row['NombreEspecie']; ?></td>
+                        <td><?= $row['Peso']; ?></td>
+                        <td><?= $row['Altura']; ?></td>
+                    </tr>   
         <?php
                 }
             }

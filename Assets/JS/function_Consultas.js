@@ -229,7 +229,7 @@ function fntViewConsulta(idConsulta)
 
         request.onreadystatechange = function(){
             if(request.readyState == 4 && request.status == 200){
-                 let objData = JSON.parse(request.responseText);
+                let objData = JSON.parse(request.responseText);
                 if(objData.status)
                 {
                     /*'<span class="badge badge-warning">Pospuesta</span>';
