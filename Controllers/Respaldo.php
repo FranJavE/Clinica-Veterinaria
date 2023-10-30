@@ -11,12 +11,14 @@
             $mysqlUserName = 'root';
             $mysqlPassword = '';
             $mysqlHostName = 'localhost';
+            $fecha = date("Ymd-His");
 
             // Define el nombre y la ruta del archivo de copia de seguridad
-            $mysqlExportPath = 'C:/Users/Franklin/Downloads/400.sql';
-            $salida_sql = $mysqlDatabaseName . 'Respaldo'. '.sql';
+            $mysqlExportPath = 'C:/xampp_3/htdocs/Clinica_Veterinaria/Respaldos/';
+            $salida_sql = $mysqlExportPath.$mysqlDatabaseName . '_' . $fecha . '.sql';
 
-            $command = 'mysqldump -h ' . $mysqlHostName . ' -u ' . $mysqlUserName . ' -password = "' . $mysqlPassword . '" ' . $mysqlDatabaseName . ' > ' . $salida_sql;
+            //$command = "mysqldump -h$mysqlHostName  -u$mysqlUserName -p$mysqlPassword --opt $mysqlDatabaseName > $salida_sql";
+            $command = 'mysqldump --opt -h' . $mysqlHostName . ' -u' . $mysqlUserName . ' --password="' . $mysqlPassword . '" ' . $mysqlDatabaseName . ' > ' . $salida_sql;
             system($command, $output);
             //$command = "mysqldump -h $mysqlHostName -u$mysqlUserName -p$mysqlPassword --opt $mysqlDatabaseName > respaldo.sql";
             echo "$command";
