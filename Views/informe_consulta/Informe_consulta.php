@@ -10,22 +10,22 @@
             <h1><i class="fas fa-user-md"></i> <?= $data['Titulo_pagina']; ?></h1>
         <div class="form-row">
              <div class="form-group col-md-6">
-                <label for="listPaciente">Paciente <span class="required">*</span></label>
+                <label for="listPaciente">Paciente  </label>
                 <select class="form-control" data-live-search="true" id="listPaciente" name="listPaciente">
                 </select>
             </div>
             <div class="form-group col-md-6">
-              <label for="txtFecha">Fecha Consulta <span class="required">*</span></label>
+              <label for="txtFecha">Fecha Consulta></label>
               <input class="form-control" id="txtFecha" name="txtFecha" type="date" placeholder="Seleccionar fecha">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6"><!-- ocupara 6 columnas -->
-              <label for="txtHora">Hora <span class="required">*</span></label>
+              <label for="txtHora">Hora</label>
               <input type="text" class="form-control valid validHora" id="txtHora" name="txtHora" placeholder="hh : mm " onkeypress="return controlhora(event);">
             </div>
             <div class="form-group col-md-6">
-            <label for="ordernarPor">Odernar Por: <span class="required">*</span></label>
+            <label for="ordernarPor">Odernar Por: </label>
             <select class="form-control" data-live-search="true" id="ordernarPor" name="ordernarPor">
                 <option value="1">Nombre Dueño</option>
                 <option value="2">Nombre mascota</option>

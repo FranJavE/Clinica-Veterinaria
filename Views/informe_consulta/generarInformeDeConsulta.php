@@ -21,7 +21,7 @@
 
 	if (!empty($_GET['fecha'])) {
 		$fecha = $_GET['fecha'];
-		$whereFecha = "AND  c.fechaconsulta = " .$fecha;
+		$whereFecha = "AND  c.fechaconsulta = '" .$fecha ."'";
 	}
 
 	if (!empty($_GET['hora'])) {

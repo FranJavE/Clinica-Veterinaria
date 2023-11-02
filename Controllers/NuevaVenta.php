@@ -10,7 +10,7 @@
 			if(empty($_SESSION['login'])) {
 				header('Location: '.base_url().'/login');
 			}
-			getPermisos(4);
+			getPermisos(11);
 		}
 
 		public function NuevaVenta($params)	{

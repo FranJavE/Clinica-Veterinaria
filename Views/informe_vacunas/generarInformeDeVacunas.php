@@ -30,7 +30,7 @@
 
 	if (!empty($_GET['fecha'])) {
 		$fecha = $_GET['fecha'];
-		$whereFecha = "AND vm.fechaVacunacion = " .$fecha;
+		$whereFecha = "AND vm.fechaVacunacion = '" .$fecha."'";
 	}
 
 	if (!empty($_GET['Hora'])) {

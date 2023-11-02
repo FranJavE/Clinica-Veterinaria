@@ -24,7 +24,7 @@
 
 	if (!empty($_GET['fechaLlegada'])) {
 		$fechaLlegada = $_GET['fechaLlegada'];
-		$whereFechaLlegada = "AND g.fechainicio = " .$fechaLlegada;
+		$whereFechaLlegada = "AND g.fechainicio = '" .$fechaLlegada ."'";
 	}
 
 	if (!empty($_GET['horaLlegada'])) {
@@ -34,7 +34,7 @@
 
 	if (!empty($_GET['fechaSalida'])) {
 		$fechaSalida = $_GET['fechaSalida'];
-		$whereFechaSalida = "AND g.fechafin = " .$fechaSalida;
+		$whereFechaSalida = "AND g.fechafin = '" .$fechaSalida ."'";
 	}
 
 	if (!empty($_GET['horaSalida'])) {
