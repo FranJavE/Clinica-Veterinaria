@@ -128,13 +128,26 @@
 			}
 			return $request;
 	    }
-	    public function deleteMascota($intidMascota)
-		{
-		$this->IdMascotas = $intidMascota;
-		$sql = "UPDATE tbl_mascota SET status = ? WHERE id_mascota = $this->IdMascotas";
-		$arrData = array(0);
-		$request = $this->update($sql,$arrData);
-		return $request;
+
+		public function verificarMacota($intIdMascota){
+			$this->IdMascotas = $intIdMascota;
+			$sql= "SELECT CASE
+					    WHEN EXISTS (SELECT 1 FROM tbl_consultas WHERE id_mascota = $this->IdMascotas AND status = 1) THEN 'Consultas'
+					    WHEN EXISTS (SELECT 1 FROM tbl_citas WHERE id_mascota = $this->IdMascotas AND status = 1) THEN 'Citas'
+					    WHEN EXISTS (SELECT 1 FROM tbl_guarderia WHERE id_mascota = $this->IdMascotas AND status = 1) THEN 'Guarderia'
+					    WHEN EXISTS (SELECT 1 FROM tbl_vacunaxmascota WHERE id_mascota = $this->IdMascotas AND status = 1) THEN 'Vacunacion'
+						ELSE 'libre'
+					END AS 'Tabla'";
+			$request = $this->select($sql);
+			return $request;
+		}
+
+		public function deleteMascota($intIdMascota){
+			$this->IdMascotas = $intIdMascota;
+			$sql = "UPDATE tbl_mascota SET status = ? WHERE id_mascota = $this->IdMascotas";
+			$arrData = array(0);
+			$request = $this->update($sql,$arrData);
+			return $request;
 		}
 		
 

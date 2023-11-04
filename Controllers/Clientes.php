@@ -2,15 +2,14 @@
 	//Pagina principal
 
 	Class Clientes extends Controllers{
-
-		Public function __construct()
-		{
+		public $views;
+		public $modelo;
+		Public function __construct() {
 			$this->views = new Views();
 			parent::__construct();
 			session_start();
 			//session_regenerate_id(true);
-			if(empty($_SESSION['login']))
-			{
+			if (empty($_SESSION['login'])) {
 				header('Location: '.base_url().'/login');
 			}
 			getPermisos(9);
@@ -141,27 +140,25 @@
 
 		}
 
-		public function delCliente()
-		{
-			if($_SESSION['PermisosMod']['u']){
-				if($_POST){
+		public function delCliente() {
+			if ($_SESSION['PermisosMod']['u']) {
+				if ($_POST) {
 					$intIdpersona = intval($_POST['idUsuario']);
-					$requestDelete = $this->modelo->deleteCliente($intIdpersona);
-						if($requestDelete)
-						{
-							$arrResponse = array("status" => true , "msg" => "Se ha eliminado el usuario");
-
-
-						}else{
+					$requestExiste = $this->modelo->verificaCliente($intIdpersona);
+					if($requestExiste['Tabla'] == 'libre') {
+						$requestDelete = $this->modelo->deleteCliente($intIdpersona);
+						if($requestDelete) {
+							$arrResponse = array("status" => true , "msg" => "Se ha eliminado el cliente");
+						} else {
 							$arrResponse = array("status" => false , "msg" => "Error al eliminar al usuario");
-
 						}
-						echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+					} else {
+						$arrResponse = array("status" => false , "msg" => "Error al eliminar al cliente, este tiene una mascota activa");
+					}
+					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
 				}
 			}
-		die();
+			die();
 		}
-
-
 	}
 ?>

@@ -1,7 +1,6 @@
 <?php 
 
-	Class ClientesModel extends Mysql
-	{
+	Class ClientesModel extends Mysql {
 		private $IdUsuario; 
 		Private $strIdentificacion;
 		Private $strNombre;
@@ -79,12 +78,12 @@
 		}
 		public function selectCliente(int $idpersona)
 		{
-			$this->intIdUsuario = $idpersona;
+			$this->IdUsuario = $idpersona;
 			$sql = "SELECT p.id_persona,p.identificacion,p.Nombre,p.Apellido,p.Telefono,p.email_user,p.Direccion,r.id_rol,r.NombreRol, p.status, DATE_FORMAT(p.datecreated, '%d-%m-%Y') as fechaRegistro
 			From tbl_persona p 
 			INNER JOIN tbl_rol r 
 			on p.id_rol  = r.id_rol 
-			where p.id_persona = $this->intIdUsuario";
+			where p.id_persona = $this->IdUsuario";
 			$request = $this->select($sql);
 			return $request;
 		}
@@ -119,8 +118,18 @@
 			}
 			return $request;
 	}
-	public function deleteCliente(int $idpersona)
-	{
+
+	public function veificaCliente(int $idPersona) {
+		$this->IdUsuario = $idPersona;
+		$sql= "SELECT CASE
+					WHEN EXISTS (SELECT 1 FROM tbl_mascota WHERE id_persona = $this->IdUsuario AND status = 1) THEN 'Mascota'
+					ELSE 'libre'
+				END AS 'Tabla'";
+		$request = $this->select($sql);
+		return $request;
+	}
+
+	public function deleteCliente(int $idpersona) {
 		$this->IdUsuario = $idpersona;
 		$sql = "UPDATE tbl_persona SET status = ? WHERE id_persona = $this->IdUsuario";
 		$arrData = array(0);

@@ -26,12 +26,14 @@
 <!------------------------------------------------------------------------ Menu Usuario ---------------------------------------------------->
 <!------------------------------------------------------------------------ Menu Catalogos ---------------------------------------------------->
 <?php if(!empty($_SESSION['permisos'][12]['r'])){?>
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-user" aria-hidden="true"></i><span class="app-menu__label">Catalogos</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fas fa-file-alt" aria-hidden="true"></i><span class="app-menu__label">Catalogos</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
            
             <li><a class="treeview-item" href="<?= base_url();?>/Especies"><i class="icon fa fa-circle-o"></i>Especies</a></li>
             <li><a class="treeview-item" href="<?= base_url();?>/Razas"><i class="icon fa fa-circle-o"></i>Razas</a></li>
             <li><a class="treeview-item" href="<?= base_url();?>/Jaulas"><i class="icon fa fa-circle-o"></i>Jaulas</a></li>
+            <li><a class="treeview-item" href="<?= base_url();?>/Categorias"><i class="icon fa fa-circle-o"></i>Categorias</a></li>
+            <li><a class="treeview-item" href="<?= base_url();?>/Proveedor"><i class="icon fa fa-circle-o"></i>Proveedor</a></li>
           </ul>
         </li>
         <?php } ?>
@@ -43,7 +45,7 @@
             <li><a class="treeview-item" href="<?= base_url();?>/Clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
           </ul>
         </li> -->
-        <li><a class="app-menu__item" href="<?= base_url();?>/Clientes"><i class="app-menu__icon fa fa-users" aria-hidden="true"></i><span class="app-menu__label">Clientes</span></a>
+        <li><a class="app-menu__item" href="<?= base_url();?>/Clientes"><i class="app-menu__icon fas fa-male" aria-hidden="true"></i><span class="app-menu__label">Clientes</span></a>
 
         <?php } ?>
 <!------------------------------------------------------------------------ Menu Clientes ---------------------------------------------------->
@@ -80,7 +82,7 @@
             <li><a class="treeview-item" href="<?= base_url();?>/Consultas"><i class="icon fa fa-circle-o"></i>Consultas</a></li>
           </ul>
         </li> -->
-        <li><a class="app-menu__item" href="<?= base_url();?>/Consultas"><i class="app-menu__icon fas fa-book" aria-hidden="true"></i><span class="app-menu__label">Consultas</span></a>
+        <li><a class="app-menu__item" href="<?= base_url();?>/Consultas"><i class="app-menu__icon icon fas fa-stethoscope" aria-hidden="true"></i><span class="app-menu__label">Consultas</span></a>
 
         <?php } ?>
 <!------------------------------------------------------------------------ Menu Consultas ---------------------------------------------------->
@@ -127,9 +129,7 @@
         <?php if(!empty($_SESSION['permisos'][11]['r'])){?>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shopping-cart" aria-hidden="true"></i><span class="app-menu__label">Tienda</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-             <li><a class="treeview-item" href="<?= base_url();?>/Categorias"><i class="icon fa fa-circle-o"></i>Categorias</a></li>
             <li><a class="treeview-item" href="<?= base_url();?>/Productos"><i class="icon fa fa-circle-o"></i>Productos</a></li>
-            <li><a class="treeview-item" href="<?= base_url();?>/Proveedor"><i class="icon fa fa-circle-o"></i>Proveedor</a></li>
             <li><a class="treeview-item" href="<?= base_url();?>/Ventas"><i class="icon fa fa-circle-o"></i>Ventas</a></li>
             <li><a class="treeview-item" href="<?= base_url();?>/historial"><i class="icon fa fa-circle-o"></i>historial</a></li>
           </li>

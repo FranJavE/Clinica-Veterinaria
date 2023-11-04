@@ -54,23 +54,23 @@
 	{
 		$whereAdmin = "";
 		if ($_SESSION['idUser'] != 1) {
-			$whereAdmin = " and p.id_persona != 1";
+			$whereAdmin = " and p.id_persona != 1 ";
 		}
 		$sql = "SELECT p.Nombre,p.id_persona,p.identificacion,p.Apellido,p.Telefono,p.email_user,p.status,r.id_rol,r.NombreRol
 		From tbl_persona p 
 		INNER JOIN tbl_rol r ON p.id_rol  = r.id_rol 
-		WHERE p.status != 0 AND p.id_rol != 3".$whereAdmin;
+		WHERE p.status != 0 AND p.id_rol != 3 ".$whereAdmin;
 		$request = $this->select_all($sql);
 		return $request;
 	}
 	public function selectUsuario(int $idpersona)
 	{
-		$this->intIdUsuario = $idpersona;
+		$this->IdUsuario = $idpersona;
 		$sql = "SELECT p.id_persona,p.identificacion,p.Nombre,p.Apellido,p.Telefono,p.email_user,p.Direccion,r.id_rol,r.NombreRol, p.status, DATE_FORMAT(p.datecreated, '%d-%m-%Y') as fechaRegistro
 		From tbl_persona p 
 		INNER JOIN tbl_rol r 
 		on p.id_rol  = r.id_rol 
-		where p.id_persona = $this->intIdUsuario";
+		where p.id_persona = $this->IdUsuario";
 		$request = $this->select($sql);
 		return $request;
 	}

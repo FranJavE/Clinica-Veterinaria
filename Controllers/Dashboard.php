@@ -2,6 +2,8 @@
 	//Pagina principal
 
 	Class Dashboard extends Controllers{
+		public $views;
+		public $modelo;
 
 		Public function __construct()
 		{
@@ -23,6 +25,17 @@
 			$data['Etiqueta_Pagina']="Dashboard-Veterinaria";
 			$data['Titulo_pagina'] = "Clinica Veterinaria";
 			$data['Nombre_pagina'] = "Dashboard";
+
+			$data ['cantidadUsuarios'] = $this->modelo->cantUsuarios();
+			$data ['cantidadClientes'] = $this->modelo->cantClientes();
+			$data ['cantidadMascotas'] = $this->modelo->cantMascotas();
+			$data ['cantidadConsultas'] = $this->modelo->cantConsultas();
+			$data ['cantidadCitas'] = $this->modelo->cantCitas();
+			$data ['cantidadVacunas'] = $this->modelo->cantVacunas();
+			$data ['cantidadProductos'] = $this->modelo->cantProductos();
+			$data ['cantidadVentas'] = $this->modelo->cantVentas();
+			$data ['cantidadGuarderia'] = $this->modelo->cantGuarderia();
+
 			$this->views->getViews($this,"Dashboard",$data);
 		}
 		

@@ -2,7 +2,8 @@
 	//Pagina principal
 
 	Class Roles extends Controllers{
-
+		public $views;
+		public $modelo;
 		Public function __construct()
 		{
 			$this->views = new Views();

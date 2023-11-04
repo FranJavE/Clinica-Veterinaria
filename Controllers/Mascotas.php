@@ -3,6 +3,8 @@
 
 	Class Mascotas extends Controllers
 	{
+		public $views;
+		public $modelo;
 
 		Public function __construct()
 		{
@@ -178,20 +180,21 @@
 			die();
 		}
 		public function delMascota() {
-			if($_SESSION['PermisosMod']['d']){
-				if($_POST){
+			if ($_SESSION['PermisosMod']['d']) {
+				if ($_POST) {
 					$intidMascota = intval($_POST['idMascota']);
-					$requestDelete = $this->modelo->deleteMascota($intidMascota);
-						if($requestDelete)
-						{
-							$arrResponse = array("status" => true , "msg" => "Se ha eliminado la mascota");
-
-
-						}else{
+					$requestExiste = $this->modelo->verificarMacota($intidMascota);
+					if($requestExiste['Tabla'] == 'libre') {
+						$requestDelete = $this->modelo->deleteMascota($intidMascota);
+						if ($requestDelete) {
+							$arrResponse = array("status" => true , "msg" => "Se ha eliminado la mascota ");
+						} else {
 							$arrResponse = array("status" => false , "msg" => "Error al eliminar la mascota");
-
 						}
-						echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+					} else {
+						$arrResponse = array("status" => false , "msg" => "La mascota tiene registro activos, no se puede eliminar");
+					}
+					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
 				}
 			}
 			die();
@@ -200,7 +203,7 @@
 		public function getSelectMascotas() {
 			//dep($_POST);
 			$htmlOptions = "";
-			$arrData = $this->modelo->selectMascotas();
+			$arrData = $this->modelo->selectMascotas(); 
 			if(count($arrData) > 0){
 				for ($i=0; $i < count($arrData); $i++){
 					$htmlOptions .= '<option value="'.$arrData[$i]['id_mascota'].'">'.$arrData[$i]['Nombre'].'</options>';

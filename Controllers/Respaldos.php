@@ -1,9 +1,28 @@
 <?php 
-	include "conex.php";
 	
-	class Respaldo
-	{
-		public function __construct(){}
+	class Respaldos extends Controllers{
+		public $views;
+		public $modelo;
+		public function __construct(){
+            $this->views = new Views();
+			parent::__construct();
+			session_start();
+			//session_regenerate_id(true);
+			if(empty($_SESSION['login']))
+			{
+				header('Location: '.base_url().'/login');
+			}
+			getPermisos(2);
+
+        }
+
+        public function Respaldos(){
+			$data['Etiqueta_Pagina']="Respaldo de base de datos";
+			$data['Titulo_pagina'] = "Respaldo de base de datos";
+			$data['Nombre_pagina'] = "Respaldo";
+			$data['page_functions_js'] = "function_respaldos.js";
+			$this->views->getViews($this,"Respaldos",$data);
+		}
 
         public function Respaldo($params) {
             // Introduce aquí la información de tu base de datos
