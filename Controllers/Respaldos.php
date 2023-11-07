@@ -33,7 +33,7 @@
             $fecha = date("Ymd-His");
 
             // Define el nombre y la ruta del archivo de copia de seguridad
-            $mysqlExportPath = 'C:/xampp_3/htdocs/Clinica_Veterinaria/Respaldos/';
+            $mysqlExportPath = 'C:/xampp/htdocs/Clinica_Veterinaria/Respaldos/';
             $salida_sql = $mysqlExportPath.$mysqlDatabaseName . '_' . $fecha . '.sql';
 
             //$command = "mysqldump -h$mysqlHostName  -u$mysqlUserName -p$mysqlPassword --opt $mysqlDatabaseName > $salida_sql";

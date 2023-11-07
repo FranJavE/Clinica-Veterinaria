@@ -74,6 +74,48 @@
 			}
 			return $request;
 		}
+	public function insertDetalleConsulta($idConsulta, $idProducto, $descripcion, $stock, $precio, $cantidad, $total)
+	{
+		$query_insert = "INSERT INTO tbl_detalle_consultas(id_consulta, id_producto, descripcion, stock, precio, cantidad, total) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		$arrData = array(
+				$idConsulta,
+				$idProducto,
+				$descripcion,
+				$stock,
+				$precio,
+				$cantidad,
+				$total
+			);
+
+		return $this->insert($query_insert, $arrData);
+	}
+
+	public function updateDetalleConsulta($idDetalleConsulta, $idProducto, $descripcion, $stock, $precio, $cantidad, $total)
+	{
+		$sql = "UPDATE tbl_detalle_consultas SET id_producto=?, descripcion=?, stock=?, precio=?, cantidad=?, total=? WHERE id_detalle_consulta = ?";
+		$arrData = array(
+			$idProducto,
+			$descripcion,
+			$stock,
+			$precio,
+			$cantidad,
+			$total,
+			$idDetalleConsulta
+		);
+
+		return $this->update($sql, $arrData);
+	}
+	public function getProductosActivos() {
+		$sql = "SELECT id_producto, Nombre_producto FROM tbl_producto WHERE status = 1";
+		$request = $this->select_all($sql);
+		return $request;
+
+		$model = new ConsultasModel();
+		$productosActivos = $model->getProductosActivos();
+	  
+		echo json_encode($productosActivos);
+	}
+	
 		public function selecConsultas() {
 			$sql = "SELECT c.id_Consulta,concat(p.Nombre,' ', p.Apellido) as 'Dueño', m.Nombre as 'NombreMascota', me.NombreMedico, e.NombreEspecie, c.Descripcion, c.fechaconsulta, c.hora,c.Precio, c.status
 				FROM tbl_consultas c

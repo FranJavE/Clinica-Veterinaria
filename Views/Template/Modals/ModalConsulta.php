@@ -54,6 +54,21 @@
 					</div>
 				</div>
                 <br></br>
+				<head>
+			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		</head>
+		<body>
+
+
+		<div id="detallesContainer">
+		<!-- Aquí se agregarán los detalles dinámicos -->
+		<button id="btnAgregarDetalle" class="btn btn-success" type="button">
+		<i class="fa fa-fw fa-lg fa-plus-circle"></i>Agregar Detalle
+		</button>
+		</div>
+
+
+         </body>
 				<div class="tile-footer">
 				  <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
 
@@ -66,6 +81,7 @@
 	</div>
   </div>
 </div>
+
 
 
 

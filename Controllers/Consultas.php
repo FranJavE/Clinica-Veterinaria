@@ -27,16 +27,12 @@
 			$data['page_functions_js'] = "function_Consultas.js";
 			$this->views->getViews($this,"Consultas",$data);
 		}
-		public function setConsultas(){
-			if($_POST){
-				//dep($_POST);
-				if(empty($_POST['listPaciente']) || empty($_POST['listMedicoId']) || 
-					empty($_POST['txtDescripcion']) || empty($_POST['txtFecha']) || empty($_POST['txtHora']) || empty($_POST['txtPrecio']) )
-				{
-
-						$arrResponse = array("status" => false, "msg" => "Datos incorrectos.");
-
-				}else{
+		public function setConsultas() {
+			if ($_POST) {
+				if (empty($_POST['listPaciente']) || empty($_POST['listMedicoId']) || 
+					empty($_POST['txtDescripcion']) || empty($_POST['txtFecha']) || empty($_POST['txtHora']) || empty($_POST['txtPrecio']) ) {
+					$arrResponse = array("status" => false, "msg" => "Datos incorrectos.");
+				} else {
 					$idConsulta = intval($_POST['idConsulta']);
 					$intIsPaciente = intval($_POST['listPaciente']);
 					$intIsMedico = intval($_POST['listMedicoId']);
@@ -45,39 +41,75 @@
 					$strHora = strClean($_POST['txtHora']);
 					$intPrecio = intval($_POST['txtPrecio']);
 					$request_user = "";
-					if($idConsulta == 0)
-					{
+		
+					if ($idConsulta == 0) {
 						$option = 1;
-						if($_SESSION['PermisosMod']['w']){
-							$request_user = $this->modelo->insertConsulta($intIsPaciente ,$intIsMedico ,$strDescripcion ,$DateFecha ,$strHora ,$intPrecio);
+						if ($_SESSION['PermisosMod']['w']) {
+							// Inserta la consulta principal
+							$idConsulta = $this->modelo->insertConsulta($intIsPaciente, $intIsMedico, $strDescripcion, $DateFecha, $strHora, $intPrecio);
+		
+							if ($idConsulta > 0) {
+								// Guarda los detalles de la consulta
+								$detalles = json_decode($_POST['detalleConsulta'], true);
+								foreach ($detalles as $detalle) {
+									$idProducto = intval($detalle['idProducto']);
+									$descripcion = strClean($detalle['descripcion']);
+									$stock = intval($detalle['stock']);
+									$precio = floatval($detalle['precio']);
+									$cantidad = intval($detalle['cantidad']);
+									$total = floatval($detalle['total']);
+									
+									// Inserta los detalles de la consulta en la tabla tbl_detalle_consulta
+									$this->modelo->insertDetalleConsulta($idConsulta, $idProducto, $descripcion, $stock, $precio, $cantidad, $total);
+								}
+		
+								$arrResponse = array("status" => true , "msg" => "Datos Guardados Correctamente.");
+							} else {
+								$arrResponse = array("status" => false , "msg" => "No es posible almacenar los datos.");
+							}
 						}
-					}else{
+					} else {
+						// Actualiza la consulta principal
 						$option = 2;
-						if($_SESSION['PermisosMod']['u']){
-							 $request_user = $this->modelo->updateConsulta($idConsulta,$intIsPaciente ,$intIsMedico ,$strDescripcion ,$DateFecha ,$strHora ,$intPrecio);
+						if ($_SESSION['PermisosMod']['u']) {
+							$request_user = $this->modelo->updateConsulta($idConsulta, $intIsPaciente, $intIsMedico, $strDescripcion, $DateFecha, $strHora, $intPrecio);
 						}
-					}
-
-
-					if($request_user > 0)
-					{
-						if($option == 1){
-							$arrResponse = array("status" => true , "msg" => "Datos Guardados Correctamente.");	
-						}else{
+		
+						if ($request_user > 0) {
+							// Actualiza o agrega los detalles de la consulta
+							$detalles = json_decode($_POST['detalleConsulta'], true);
+							foreach ($detalles as $detalle) {
+								$idDetalle = intval($detalle['idDetalleConsulta']);
+								$idProducto = intval($detalle['idProducto']);
+								$descripcion = strClean($detalle['descripcion']);
+								$stock = intval($detalle['stock']);
+								$precio = floatval($detalle['precio']);
+								$cantidad = intval($detalle['cantidad']);
+								$total = floatval($detalle['total']);
+		
+								if ($idDetalle == 0) {
+									// Inserta un nuevo detalle
+									$this->modelo->insertDetalleConsulta($idConsulta, $idProducto, $descripcion, $stock, $precio, $cantidad, $total);
+								} else {
+									// Actualiza un detalle existente
+									$this->modelo->updateDetalleConsulta($idDetalle, $idProducto, $descripcion, $stock, $precio, $cantidad, $total);
+								}
+							}
+		
 							$arrResponse = array("status" => true , "msg" => "Datos Actualizados Correctamente.");
+						} else {
+							$arrResponse = array("status" => false , "msg" => "No es posible actualizar los datos.");
 						}
-						
-					}else if($request_user == 'exist'){
-						$arrResponse = array("status" => false , "msg" => "Ya se registro esta Consulta, verifique los datos.");
-					}else{
-						$arrResponse = array("status" => false , "msg" => "No es posible almacenar los datos.");
 					}
-
 				}
-				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);	
+		
+				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 			}
-			die(); 	
+			die();
 		}
+
+		
+		
 		public function getConsultas()
 		{
 			if($_SESSION['PermisosMod']['r']){
