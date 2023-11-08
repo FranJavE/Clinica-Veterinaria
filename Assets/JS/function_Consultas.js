@@ -1,3 +1,4 @@
+
 let tableConsultas;
 let rowTable = "";
 document.addEventListener('DOMContentLoaded', function(){
@@ -46,13 +47,13 @@ document.addEventListener('DOMContentLoaded', function(){
                 "titleAttr":"Esportar a CSV",
                 "className": "btn btn-info"
             }
-        ], 
+        ],
         "resonsieve":"true",
         "bDestroy": true,
         "iDisplayLength": 10,
-        "order":[[0,"desc"]]  
+        "order":[[0,"desc"]]
     });
-  if (document.querySelector('#formConsulta')) 
+  if (document.querySelector('#formConsulta'))
     {
     //Nueva Consulta
         let formConsulta = document.querySelector('#formConsulta');
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function(){
             let strHora = document.querySelector('#txtHora').value;
             let intPrecio= document.querySelector('#txtPrecio').value;
 
-            if(intIsPaciente == '' || intIsMedico == '' || strDescripcion == '' || intPrecio == '' || 
+            if(intIsPaciente == '' || intIsMedico == '' || strDescripcion == '' || intPrecio == '' ||
                 DateFecha == '' || strHora == '')
             {
                 swal("Atencion", "Todos los campos son obligatorios. ", "error");
@@ -94,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     {
                         if(rowTable == ""){
                           tableConsultas.api().ajax.reload();
-                        }else{ 
+                        }else{
                             rowTable.cells[1].textContent = document.querySelector('#listPaciente').selectedOptions[0].text;
                             rowTable.cells[3].textContent = document.querySelector('#listMedicoId').selectedOptions[0].text;
                             rowTable.cells[5].textContent = strHora;
@@ -113,12 +114,12 @@ document.addEventListener('DOMContentLoaded', function(){
                 }
             //divLoading.style.display = "none";
             return false;
-            }   
+            }
         }
     }
 
 }, false);
- 
+
 window.addEventListener('load', function(){
     fntDueno();
     fntMedico();
@@ -158,7 +159,7 @@ function fntMedico(){
  }
 
  function fntMascotas()
-{   
+{
     let intlistPacienteeId = document.querySelector('#listDuenoId').value;
     let ajaxUrl = base_url+'/Mascotas/getSelectMascota/'+intlistPacienteeId;
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -181,7 +182,7 @@ function fntEditConsulta(element, idConsulta)
 {
     rowTable = element.parentNode.parentNode.parentNode;
    // rowTable.cells[1].textContent = "Julio";
-    
+
    //console.log(rowTable);
     document.querySelector('#titleModal').innerHTML ="Actualizar Consulta";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
@@ -192,7 +193,7 @@ function fntEditConsulta(element, idConsulta)
     let ajaxUrl = base_url+'/Consultas/getConsulta/'+idConsulta;
     request.open("GET",ajaxUrl,true);
     request.send();
-    
+
 
             request.onreadystatechange = function(){
 
@@ -212,7 +213,7 @@ function fntEditConsulta(element, idConsulta)
                     document.querySelector('#txtFecha').value = objData.data.fechaconsulta;
                     document.querySelector('#txtHora').value = objData.data.hora;
                     document.querySelector('#txtPrecio').value = objData.data.Precio;
-                    }            
+                    }
 
             $('#modalFormConsulta').modal('show');
         }
@@ -261,7 +262,7 @@ function fntDelConsulta(idConsulta)
             cancelButtonText: "No, Cancelar",
             closeOnConfirm: false,
             closeOnCancel: true
-        }, function(isConfirm) { 
+        }, function(isConfirm) {
             if (isConfirm){
 
                 let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -275,10 +276,10 @@ function fntDelConsulta(idConsulta)
                         let objData = JSON.parse(request.responseText);//convertimos un obj a formato JSON
 
                         if(objData.status)
-                        {   
+                        {
                             swal("Eliminar!", objData.msg , "success");
                             tableConsultas.api().ajax.reload();
-                            
+
                         }else{
                             swal("Atención!", objData.msg , "error");
                         }
@@ -288,7 +289,7 @@ function fntDelConsulta(idConsulta)
             }
 
         });
-} 
+}
 function fntImprimirConsulta(idConsulta)
   {
         //let idConsulta = idConsulta;
@@ -331,3 +332,75 @@ function openModal()
     document.querySelector("#formConsulta").reset();
     $('#modalFormConsulta').modal('show');
 }
+$(document).ready(function() {
+    var detalleCounter = 0;
+  
+    // Manejar el clic en el botón "Agregar Detalle"
+    $("#btnAgregarDetalle").click(function() {
+      detalleCounter++;
+  
+      // Crea el HTML para el detalle
+      var detalleHTML = `
+        <div class="detalle">
+          <div class="form-row">
+            <div class="form-group col-md-2">
+              <input type="text" class="form-control" name="detalleproducto${detalleCounter}" placeholder="producto">
+            </div>
+            <div class="form-group col-md-2">
+              <input type="text" class="form-control" name="detallesdescripcion${detalleCounter}" placeholder="descripcion">
+            </div>
+            <div class="form-group col-md-2">
+              <input type="text" class="form-control" name="detallestock${detalleCounter}" placeholder="stock">
+            </div>
+            <div class="form-group col-md-2">
+              <input type="text" class="form-control" name="detalleprecio${detalleCounter}" placeholder="precio">
+            </div>
+            <div class="form-group col-md-2">
+              <input type="text" class="form-control" name="detallecantidad${detalleCounter}" placeholder="cantidad">
+            </div>
+            <div class="form-group col-md-2">
+              <input type="text" class="form-control" name="detalletotal${detalleCounter}" placeholder="total">
+            </div>
+          </div>
+        </div>
+      `;
+  
+      // Agrega el detalle al contenedor
+      $("#detallesContainer").append(detalleHTML);
+    });
+  
+    $("#btnActionForm").click(function() {
+      // Recopila los detalles en un arreglo
+      var detalles = [];
+      for (var i = 1; i <= detalleCounter; i++) {
+        var producto = document.querySelector(`input[name="detalleproducto${i}"]`).value;
+        var descripcion = document.querySelector(`input[name="detallesdescripcion${i}"]`).value;
+        var stock = document.querySelector(`input[name="detallestock${i}"]`).value;
+        var precio = document.querySelector(`input[name="detalleprecio${i}"]`).value;
+        var cantidad = document.querySelector(`input[name="detallecantidad${i}"]`).value;
+        var total = document.querySelector(`input[name="detalletotal${i}"]`).value;
+  
+        var detalle = {
+          producto: producto,
+          descripcion: descripcion,
+          stock: stock,
+          precio: precio,
+          cantidad: cantidad,
+          total: total,
+        };
+  
+        detalles.push(detalle);
+      }
+  
+      // Agrega los detalles al formulario principal como un campo oculto
+      var detallesInput = document.createElement("input");
+      detallesInput.type = "hidden";
+      detallesInput.name = "detalleConsulta";
+      detallesInput.value = JSON.stringify(detalles);
+      formConsulta.appendChild(detallesInput);
+  
+      // Continúa con el envío del formulario principal
+      formConsulta.submit();
+    });
+  });
+  
