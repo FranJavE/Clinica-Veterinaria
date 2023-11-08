@@ -139,3 +139,13 @@
 	</div>
   </div>
 </div>
+
+<style>
+  .btnQuitarDetalle {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+</style>

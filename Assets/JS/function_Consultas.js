@@ -332,6 +332,7 @@ function openModal()
     document.querySelector("#formConsulta").reset();
     $('#modalFormConsulta').modal('show');
 }
+
 $(document).ready(function() {
     var detalleCounter = 0;
   
@@ -359,7 +360,10 @@ $(document).ready(function() {
               <input type="text" class="form-control" name="detallecantidad${detalleCounter}" placeholder="cantidad">
             </div>
             <div class="form-group col-md-2">
-              <input type="text" class="form-control" name="detalletotal${detalleCounter}" placeholder="total">
+              <input type="text" class="form-control" name="detalletotal${detalleCounter}" placeholder="total" disabled>
+            </div>
+            <div class="form-group col-md-2">
+              <button class="btnQuitarDetalle">Quitar Detalle</button>
             </div>
           </div>
         </div>
@@ -367,6 +371,22 @@ $(document).ready(function() {
   
       // Agrega el detalle al contenedor
       $("#detallesContainer").append(detalleHTML);
+    });
+
+    $("#detallesContainer").on("click", ".btnQuitarDetalle", function() {
+      $(this).closest(".detalle").remove();
+    });
+    $("#detallesContainer").on("input", "input[name^='detalleprecio'], input[name^='detallecantidad']", function() {
+      var detalle = $(this).closest(".detalle");
+  
+      var precio = parseFloat(detalle.find("input[name^='detalleprecio']").val()) || 0;
+      var cantidad = parseFloat(detalle.find("input[name^='detallecantidad']").val()) || 0;
+      var precioGlobal = parseFloat($("#txtPrecio").val()) || 0;
+  
+      var total = precio * cantidad;
+      detalle.find("input[name^='detalletotal']").val(total);
+
+      $("#txtPrecio").val(precioGlobal + total);
     });
   
     $("#btnActionForm").click(function() {

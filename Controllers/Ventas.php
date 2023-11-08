@@ -119,6 +119,7 @@
 			$id_venta = (int) $id_venta;
 			$productos = $this->modelo->getProVenta($id_venta);
 			$clientes = $this->modelo->getClientes($id_venta);
+			
 		
 			require('Libraries/fpdf/fpdf.php');
 		
@@ -128,8 +129,18 @@
 		
 			// Encabezado
 			$pdf->SetFont('Arial', 'B', 12);
-			$pdf->Cell(60, 10, utf8_decode('Clinica Veterinaria Vet Amigos'), 0, 1, 'C');
-			// $pdf->Cell(10, 5, $clientes['Nombre'], 0, 0, 'L');
+			$pdf->Cell(60, 10, utf8_decode('Clinica Veterinaria El Gato'), 0, 1, 'C');
+			$pdf->SetFont('Arial', 'B', 8);
+			$pdf->Cell(60, 10, utf8_decode('Telefono: +505 5824 5488'), 0, 1, 'C');
+			$pdf->Cell(60, 0, utf8_decode('Dirección: Barrio Central, contiguo'), 0, 1, 'C');
+			$pdf->Cell(60, 10, utf8_decode('a la entrada municipal, El Rama'), 0, 1, 'C');
+			
+			$pdf->Cell(15, 10, 'Cliente:', 0, 0, 'L');
+            $pdf->Cell(15, 10, $clientes['Nombre'], 0, 0, 'L');
+            $pdf->Cell(10, 10, $clientes['Apellido'], 0, 1, 'L');
+
+
+
 
 			$pdf->Ln();
 			$pdf->SetFont('Arial', 'B', 8);
@@ -155,7 +166,7 @@
 				$pdf->Cell(10, 5, $row['cantidad'] * $row['precio'], 0, 1, 'L');
 			
 	
-				$pdf->ln(10);
+				$pdf->ln(20);
 			}
 		
 			$pdf->Output();
