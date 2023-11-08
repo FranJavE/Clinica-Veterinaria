@@ -15,7 +15,7 @@
                 </select>
             </div>
             <div class="form-group col-md-6">
-              <label for="txtFecha">Fecha Consulta></label>
+              <label for="txtFecha">Fecha Consulta</label>
               <input class="form-control" id="txtFecha" name="txtFecha" type="date" placeholder="Seleccionar fecha">
             </div>
         </div>

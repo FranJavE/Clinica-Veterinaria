@@ -196,8 +196,7 @@
 		public function selectGetProductos() {
 			$sql = "SELECT id_producto, Nombre_producto
 					FROM tbl_producto
-					WHERE stock	> 0
-					  AND tbl_producto.status != 0"; 
+					WHERE tbl_producto.status != 0"; 
 			$request = $this->select_all($sql);
 			return $request;
 		}
