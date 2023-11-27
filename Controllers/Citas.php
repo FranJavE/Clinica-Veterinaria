@@ -3,8 +3,9 @@
 
 	Class Citas extends Controllers{
 
-		Public function __construct()
-		{
+		public $views;
+		public $modelo;
+		Public function __construct() {
 			$this->views = new Views();
 			parent::__construct();
 			session_start();
@@ -29,11 +30,8 @@
 		public function setCita(){
 			if($_POST){
 				//dep($_POST);
-				if(empty($_POST['listPaciente'])  || empty($_POST['txtDescripcion']) || empty($_POST['txtFecha']) || empty($_POST['txtHora']))
-				{
-
-						$arrResponse = array("status" => false, "msg" => "Datos incorrectos.");
-
+				if(empty($_POST['listPaciente'])  || empty($_POST['txtDescripcion']) || empty($_POST['txtFecha']) || empty($_POST['txtHora'])) {
+					$arrResponse = array("status" => false, "msg" => "Datos incorrectos.");
 				} else {
 					$idCita = intval($_POST['idCita']);
 					$intIdPaciente = intval(strClean($_POST['listPaciente']));
@@ -41,8 +39,7 @@
 					$DateFecha = strClean($_POST['txtFecha']);
 					$strHora = strClean($_POST['txtHora']);
 					$intStatus = intval(strClean($_POST['listStatus']));
-					if($idCita == 0)
-					{
+					if($idCita == 0) {
 						$option = 1;
 						if($_SESSION['PermisosMod']['w']){
 							$request_mas= $this->modelo->insertcitas($intIdPaciente,$strDescripcion,$DateFecha,$strHora);
@@ -54,21 +51,14 @@
 						}	
 					}
 
-
-					if($request_mas > 0)
-					{
-						if($option == 1){
-							$arrResponse = array("status" => true , "msg" => "Datos Guardados Correctamente.");	
-						}else{
-							$arrResponse = array("status" => true , "msg" => "Datos Actualizados Correctamente.");
-						}
-						
-					}else if($request_mas == 'exist'){
+					if($request_mas > 0) {
+						$arrResponse = $option == 1 ? array("status" => true , "msg" => "Datos Guardados Correctamente.")
+												    : array("status" => true , "msg" => "Datos Actualizados Correctamente.");	
+					} else if($request_mas == 'exist') {
 						$arrResponse = array("status" => false , "msg" => "Ya existe una cita para ese dia y hora.");
 					}else{
 						$arrResponse = array("status" => false , "msg" => "No es posible almacenar los datos.");
 					}
-
 				}
 				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);	
 			}
@@ -135,26 +125,20 @@
 			}
 			die();
 		}
-		public function delCita()
-		{
+		public function delCita() {
 			if($_SESSION['PermisosMod']['d']){
 				if($_POST){
 					$idCita = intval($_POST['idCita']);
 					$requestDelete = $this->modelo->deleteCita($idCita);
-						if($requestDelete)
-						{
-							$arrResponse = array("status" => true , "msg" => "Se ha eliminado la cita");
-
-
-						}else{
-							$arrResponse = array("status" => false , "msg" => "Error al eliminar la cita");
-
-						}
-						echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+					if($requestDelete) {
+						$arrResponse = array("status" => true , "msg" => "Se ha eliminado la cita");
+					}else{
+						$arrResponse = array("status" => false , "msg" => "Error al eliminar la cita");
+					}
+					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
 				 }
 			}
 			die();
-
 		}
 		
 	}

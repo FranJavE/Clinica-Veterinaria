@@ -21,7 +21,7 @@
 			$this->Hora = $strHora;
 			$return = 0;
 
-			$sql = "SELECT * FROM tbl_citas where fechacita = '{$this->fechacita}' and Hora ='{$this->Hora}' and status =1";
+			$sql = "SELECT * FROM tbl_citas where fechacita = '{$this->fechacita}' and Hora ='{$this->Hora}' and status = 1";
 			$request = $this->select_all($sql);
 			if (empty($request)) {
 				$query_insert = "INSERT INTO tbl_citas(id_mascota,Descripcion,fechacita,Hora) VALUES(?,?,?,?)";

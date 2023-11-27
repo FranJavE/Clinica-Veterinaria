@@ -272,11 +272,15 @@ function fntViewInfo(idProducto){
                 let estadoProducto = objProducto.status == 1 ? 
                 '<span class="badge badge-success">Activo</span>' : 
                 '<span class="badge badge-danger">Inactivo</span>';
+                let cantidadStock = objProducto.stock;
+                let stockProducto = cantidadStock > 5 ?
+                  objProducto.stock :
+                  `<span class="badge badge-danger">${cantidadStock}</span>`;
 
                 document.querySelector("#celCodigo").innerHTML = objProducto.Codigo;
                 document.querySelector("#celNombre").innerHTML = objProducto.Nombre_producto;
                 document.querySelector("#celPrecio").innerHTML = objProducto.Precio;
-                document.querySelector("#celStock").innerHTML = objProducto.stock;
+                document.querySelector("#celStock").innerHTML = stockProducto;
                 document.querySelector("#celCategoria").innerHTML = objProducto.categoria;
                 document.querySelector("#celProveedor").innerHTML = objProducto.Nombre_proveedor;
                 document.querySelector("#celStatus").innerHTML = estadoProducto;

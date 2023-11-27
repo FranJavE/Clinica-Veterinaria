@@ -1,7 +1,8 @@
 <?php 
 	class Productos extends Controllers{
-		public function __construct()
-		{
+		public $views;
+		public $modelo;
+		public function __construct() {
 			parent::__construct();
 			session_start();
 			session_regenerate_id(true);
@@ -34,11 +35,15 @@
 					$btnEdit = '';
 					$btnDelete = '';
 
-					if($arrData[$i]['status'] == 1)
-					{
+					if ($arrData[$i]['status'] == 1) {
 						$arrData[$i]['status'] = '<span class="badge badge-success">Activo</span>';
-					}else{
+					} else {
 						$arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
+					}
+					if ($arrData[$i]['stock'] > 5) {
+						$arrData[$i]['stock'] = $arrData[$i]['stock'];
+					} else {
+						$arrData[$i]['stock'] = '<span class="badge badge-danger">'.$arrData[$i]['stock'].'</span>';
 					}
 
 					$arrData[$i]['Precio'] = SMONEY.' '.formatMoney($arrData[$i]['Precio']);
@@ -59,13 +64,12 @@
 		}
 
 		public function setProducto(){
-			if($_POST){
+			if ($_POST) {
 				//dep($_POST); exit();
-				if(empty($_POST['txtNombre']) || empty($_POST['txtCodigo']) || empty($_POST['listCategoria']) || empty($_POST['txtPrecio']) || empty($_POST['listStatus']) || empty($_POST['listProveedor']))
-				{
+				if (empty($_POST['txtNombre']) || empty($_POST['txtCodigo']) || empty($_POST['listCategoria']) 
+				  || empty($_POST['txtPrecio']) || empty($_POST['listStatus']) || empty($_POST['listProveedor'])) {
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-				}else{
-					
+				} else {
 					$idProducto = intval($_POST['idProducto']);
 					$strNombre = strClean($_POST['txtNombre']);
 					$strDescripcion = strClean($_POST['txtDescripcion']);
@@ -108,16 +112,15 @@
 																		$intStatus);
 						}
 					}
-					if($request_producto > 0 )
-					{
-						if($option == 1){
+					if ($request_producto > 0 ) {
+						if($option == 1) {
 							$arrResponse = array('status' => true, 'id_producto' => $request_producto, 'msg' => 'Datos guardados correctamente.');
-						}else{
+						} else {
 							$arrResponse = array('status' => true, 'id_producto' => $idProducto, 'msg' => 'Datos Actualizados correctamente.');
 						}
-					}else if($request_producto == 'exist'){
+					} else if($request_producto == 'exist') {
 						$arrResponse = array('status' => false, 'msg' => '¡Atención! ya existe un producto con el Código Ingresado.');		
-					}else{
+					} else {
 						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 					}
 				}
