@@ -88,55 +88,76 @@
 <!-- Modal -->
 <div class="modal fade" id="modalViewConsulta" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog ">
-	<div class="modal-content">
-	  <div class="modal-header header-primary">
-		<h5 class="modal-title" id="titleModal">Datos Consulta</h5>
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		  <span aria-hidden="true">&times;</span>
-		</button>
-	  </div>
-	  <div class="modal-body">
-		  <table class="table table-bordered">
-		  	<tbody>
-		  		<tr>
-		  			<td>Dueño:</td>
-		  			<td id="celNombreDueno"></td>
-		  		</tr>
-		  		<tr>
-		  			<td>Paciente:</td>
-		  			<td id="celPaciente"></td>
-		  		</tr>
-		  		<tr>
-		  			<td>Especie:</td>
-		  			<td id="celEspecie"></td>
-		  		</tr>
-		  		<tr>
-		  			<td>Raza:</td>
-		  			<td id="celRaza"></td>
-		  		</tr>
-		  		<tr>
-		  			<td>Descripcion:</td>
-		  			<td id="celDescripcion"></td>
-		  		</tr>
-		  		<tr>
-		  			<td>Fecha de Consulta:</td>
-		  			<td id="celFecha"></td>
-		  		</tr>
-		  		<tr>
-		  			<td>Hora:</td>
-		  			<td id="celHora"></td>
-		  		</tr>
-		  	   <tr>
-		  			<td>Precio:</td>
-		  			<td id="celPrecio"></td>
-		  		</tr>
-		  	</tbody>
-		  </table>
-	  </div>
-	  <div class="modal-footer">
-	  	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	  </div>
-	</div>
+    <div class="modal-content">
+      <div class="modal-header header-primary">
+        <h5 class="modal-title" id="titleModal">Datos Consulta</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td>Dueño:</td>
+              <td id="celNombreDueno"></td>
+            </tr>
+            <tr>
+              <td>Paciente:</td>
+              <td id="celPaciente"></td>
+            </tr>
+            <tr>
+              <td>Especie:</td>
+              <td id="celEspecie"></td>
+            </tr>
+            <tr>
+              <td>Raza:</td>
+              <td id="celRaza"></td>
+            </tr>
+            <tr>
+              <td>Descripcion:</td>
+              <td id="celDescripcion"></td>
+            </tr>
+            <tr>
+              <td>Fecha de Consulta:</td>
+              <td id="celFecha"></td>
+            </tr>
+            <tr>
+              <td>Hora:</td>
+              <td id="celHora"></td>
+            </tr>
+            <tr>
+              <td>Precio:</td>
+              <td id="celPrecio"></td>
+            </tr>
+
+            <!-- Nuevas filas para tbl_detalle_consultas -->
+            <tr>
+              <td colspan="2"><strong>Detalles de la Consulta:</strong></td>
+            </tr>
+            <tr>
+              <td>Descripción Producto:</td>
+              <td id="celDescProducto"></td>
+            </tr>
+            <tr>
+              <td>Stock:</td>
+              <td id="celStock"></td>
+            </tr>
+            <tr>
+              <td>Precio Producto:</td>
+              <td id="celPrecioProducto"></td>
+            </tr>
+            <tr>
+              <td>Cantidad:</td>
+              <td id="celCantidad"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
   </div>
 </div>
 

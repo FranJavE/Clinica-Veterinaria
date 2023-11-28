@@ -45,31 +45,41 @@ tableProductos = $('#tableProductos').dataTable( {
             "text": "<i class='fas fa-file-excel'></i> Excel",
             "titleAttr":"Esportar a Excel",
             "className": "btn btn-success",
-            "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4, 5] 
+            "exportOptions": {
+                "columns": [0, 1, 2, 3, 4, 5]
             }
-        },{
+        },
+        {
             "extend": "pdfHtml5",
             "text": "<i class='fas fa-file-pdf'></i> PDF",
-            "titleAttr":"Esportar a PDF",
+            "titleAttr": "Exportar a PDF",
             "className": "btn btn-danger",
-            "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4, 5] 
+            "exportOptions": {
+                "columns": [0, 1, 2, 3, 4, 5]
             }
-        },{
+        },
+        {
             "extend": "csvHtml5",
             "text": "<i class='fas fa-file-csv'></i> CSV",
-            "titleAttr":"Esportar a CSV",
+            "titleAttr": "Exportar a CSV",
             "className": "btn btn-info",
-            "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4, 5] 
+            "exportOptions": {
+                "columns": [0, 1, 2, 3, 4, 5]
             }
         }
     ],
-    "resonsieve":"true",
+    "responsive": true,
     "bDestroy": true,
     "iDisplayLength": 10,
-    "order":[[0,"desc"]]  
+    "order": [[0, "desc"]],
+    "createdRow": function (row, data, dataIndex) {
+        var stock = data.stock; // Obtener el valor de la columna "stock" para esta fila
+
+        // Aplicar estilo rojo si el stock es menor o igual a 5
+        if (stock !== null && stock <= 5) {
+            $('td', row).eq(3).css('color', 'red');
+        }
+    }
 });
 window.addEventListener('load', function() {
     if(document.querySelector("#formProductos")){

@@ -123,9 +123,10 @@
 		
 			require('Libraries/fpdf/fpdf.php');
 		
-			$pdf = new FPDF('P','mm', array(80, 200));
+			$pdf = new FPDF('P','mm', array(85, 200));
 			$pdf->AddPage();
 			$pdf->SetMargins(2, 0, 0);
+			// $pdf->Image('Assets/Images/logoVeterina.png', 10, 10, 40);
 		
 			// Encabezado
 			$pdf->SetFont('Arial', 'B', 12);
@@ -141,39 +142,50 @@
 
 
 
-
 			$pdf->Ln();
 			$pdf->SetFont('Arial', 'B', 8);
-			$pdf->Cell(15, 5, 'Cant', 0, 0, 'L');
-			$pdf->Cell(30, 5, 'Descripcion', 0, 0, 'L');
-			$pdf->Cell(15, 5, 'Precio', 0, 0, 'L');
-			$pdf->Cell(10, 5, 'Sub total', 0, 1, 'L');
-		
+			// Establecer un grosor de línea más delgado
+			$pdf->SetLineWidth(0.2);
+
+			// Encabezado con contorno
+			$pdf->Cell(15, 5, 'Cant', 'LTRB', 0, 'L');
+			$pdf->Cell(30, 5, 'Descripcion', 'LTRB', 0, 'L');
+			$pdf->Cell(15, 5, 'Precio', 'LTRB', 0, 'L');
+			$pdf->Cell(20, 5, 'Sub total', 'LTRB', 1, 'L');
+
 			$pdf->SetFont('Arial', '', 8);
+			$total = 0;  // Inicializar la variable total
+
 			foreach ($productos as $row) {
-				$pdf->Cell(15, 5, $row['cantidad'], 0, 0, 'L');
-				$descripcionX = $pdf->GetX(); 
-				$descripcionY = $pdf->GetY(); 
-				$pdf->MultiCell(30, 5, $row['Descripcion'], 0, 'J');
-				$pdf->setXY($descripcionX, $descripcionY); 
+				// Celdas con contorno
+				$pdf->Cell(15, 5, $row['cantidad'], 'LTRB', 0, 'L');
 				
-				$precioX = $descripcionX + 35; 
-				$pdf->setX($precioX); 
-				$pdf->Cell(15, 5, $row['precio'], 0, 0, 'L');
+				$descripcionX = $pdf->GetX();
+				$descripcionY = $pdf->GetY();
+				$pdf->MultiCell(30, 5, $row['Descripcion'], 'LTRB', 'J');
 				
-				$cantidadX = $precioX + 20; 
-				$pdf->setX($cantidadX);
-				$pdf->Cell(10, 5, $row['cantidad'] * $row['precio'], 0, 1, 'L');
-			
-	
+				// Ajustar posición X para la celda de Precio
+				$pdf->setXY($descripcionX + 30, $descripcionY); // Ajuste aquí
+
+				$pdf->Cell(15, 5, $row['precio'], 'LTRB', 0, 'L');
+
+				// Ajustar posición X e Y para la celda de Subtotal
+				$pdf->setXY($descripcionX + 45, $descripcionY); // Ajuste aquí
+				
+				$subtotal = $row['cantidad'] * $row['precio'];
+				$total += $subtotal;  // Sumar al total
+				$pdf->Cell(10, 5, $subtotal, 'LTRB', 1, 'L');
+
 				$pdf->ln(20);
 			}
-		
+
+			// Agregar celda para mostrar el total con contorno
+			$pdf->Cell(70, 5, 'Total:', 'LTRB', 0, 'R');
+			$pdf->Cell(10, 5, $total, 'LTRB', 1, 'L');
+
 			$pdf->Output();
-		}
-		
-		
-		
+
+		}			
 		
 		
     }

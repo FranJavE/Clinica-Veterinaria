@@ -15,9 +15,7 @@
 		public function selectRoles()
 		{
 			$whereAdmin = "";
-			if($_SESSION['idUser'] != 1){
-				$whereAdmin = " and id_rol != 1 and id_rol != 3";
-			}
+			$whereAdmin = " and id_rol != 1 and id_rol != 3";
 			$sql = "SELECT * FROM tbl_rol where status != 0".$whereAdmin;
 			$request = $this->select_all($sql);
 			return $request;
@@ -76,7 +74,7 @@
 		public function deleteRol(int $idrol)
 		{
 			$this->intIdrol = $idrol;
-			$sql = "SELECT * FROM tbl_persona WHERE id_rol= $this->intIdrol ";
+			$sql = "SELECT * FROM tbl_persona WHERE id_rol= $this->intIdrol AND status != 0";
 			$request = $this->select_all($sql);
 			if(empty($request))
 			{

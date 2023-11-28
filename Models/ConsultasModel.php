@@ -137,22 +137,39 @@
 		public function selectConsulta(int $idConsulta)
 		{
 			$this->IdConsulta = $idConsulta;
-			$sql = "SELECT c.id_Consulta,concat(p.Nombre,' ', p.Apellido) as 'Dueño', m.Nombre as 'NombreMascota', me.NombreMedico, e.NombreEspecie,r.NombreRaza, c.Descripcion, c.fechaconsulta, c.hora,c.Precio, c.status,me.id_medico, m.id_mascota, p.id_persona
+			$sql = "
+				SELECT
+					c.id_Consulta,
+					concat(p.Nombre,' ', p.Apellido) as 'Dueño',
+					m.Nombre as 'NombreMascota',
+					me.NombreMedico,
+					e.NombreEspecie,
+					r.NombreRaza,
+					c.Descripcion,
+					c.fechaconsulta,
+					c.hora,
+					c.Precio,
+					c.status,
+					me.id_medico,
+					m.id_mascota,
+					p.id_persona,
+					dc.id_detalle_consulta,
+					dc.id_producto,
+					dc.descripcion as 'desc_producto',
+					dc.stock,
+					dc.precio as 'precio_producto',
+					dc.cantidad
 				FROM tbl_consultas c
-				INNER JOIN tbl_mascota m
-				ON c.id_mascota = m.id_mascota
-				INNER JOIN tbl_persona p 
-				ON p.id_persona = m.id_persona
-				INNER JOIN tbl_raza r 
-				ON r.id_raza = m.id_raza
-				INNER JOIN tbl_especie e 
-				ON e.id_especie = r.id_especie
-                INNER JOIN tbl_medico me 
-                ON me.id_medico = c.id_medico
-				where c.status != 0 and id_Consulta = $this->IdConsulta ";
+				INNER JOIN tbl_mascota m ON c.id_mascota = m.id_mascota
+				INNER JOIN tbl_persona p ON p.id_persona = m.id_persona
+				INNER JOIN tbl_raza r ON r.id_raza = m.id_raza
+				INNER JOIN tbl_especie e ON e.id_especie = r.id_especie
+				INNER JOIN tbl_medico me ON me.id_medico = c.id_medico
+				LEFT JOIN tbl_detalle_consultas dc ON c.id_Consulta = dc.id_consulta
+				WHERE c.status != 0 AND c.id_Consulta = $this->IdConsulta";
 			$request = $this->select($sql);
 			return $request;
-		}
+		}		
 
 		public function deleteConsulta(int $idConsulta)
 		{

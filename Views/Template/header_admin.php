@@ -39,9 +39,38 @@
           <ul class="dropdown-menu settings-menu dropdown-menu-right">
             <li><a class="dropdown-item" href="<?= base_url();?>/Respaldos/Respaldos"><i class="fa fa-cog fa-lg"></i> Respaldo</a></li>
             <li><a class="dropdown-item" href="<?= base_url();?>/Usuarios/Perfil"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+            <li><a class="dropdown-item" href="#" id="btnDescargarWord"><i class="fa fa-file-word fa-lg"></i> Descargar Manual</a></li>
             <li><a class="dropdown-item" href="<?= base_url();?>/Logout"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
           </ul>
         </li>
       </ul>
     </header>
     <?php require_once("nav_admin.php"); ?>
+   
+
+    <script>
+  document.getElementById('btnDescargarWord').addEventListener('click', function() {
+    // Lógica para descargar el archivo Word
+    descargarWord();
+  });
+
+  function descargarWord() {
+    // Ruta relativa del archivo Word en tu proyecto
+    var rutaArchivoWord = 'Assets/Images/manual_usuario.docx';
+
+    // Obtén la ruta completa del archivo
+    var urlArchivoWord = window.location.origin + '/' + rutaArchivoWord;
+
+    // Crea un enlace 'a' para descargar el archivo
+    var a = document.createElement('a');
+    a.href = urlArchivoWord;
+    a.download = 'manual_usuario.docx';
+
+    // Agrega el enlace al DOM y simula un clic para iniciar la descarga
+    document.body.appendChild(a);
+    a.click();
+
+    // Remueve el enlace del DOM después de la descarga
+    document.body.removeChild(a);
+  }
+</script>

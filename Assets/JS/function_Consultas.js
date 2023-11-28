@@ -243,6 +243,14 @@ function fntViewConsulta(idConsulta)
                     document.querySelector("#celPrecio").innerHTML = objData.data.Precio;
                     document.querySelector("#celFecha").innerHTML = objData.data.fechaconsulta;
                     document.querySelector("#celHora").innerHTML =  objData.data.hora;
+
+                    if (objData.data.id_detalle_consulta) {
+                      document.querySelector("#celDescProducto").innerHTML = objData.data.desc_producto;
+                      document.querySelector("#celStock").innerHTML = objData.data.stock;
+                      document.querySelector("#celPrecioProducto").innerHTML = objData.data.precio_producto;
+                      document.querySelector("#celCantidad").innerHTML = objData.data.cantidad;
+                  }
+                  
                     $('#modalViewConsulta').modal('show');
                 }else{
                     swal("Error". objData.msg , "error");
@@ -344,9 +352,9 @@ $(document).ready(function() {
       var detalleHTML = `
         <div class="detalle">
           <div class="form-row">
-            <div class="form-group col-md-2">
-              <input type="text" class="form-control" name="detalleproducto${detalleCounter}" placeholder="producto">
-            </div>
+          <div class="form-group col-md-2">
+          <input type="text" class="form-control" name="detallesdescripcion${detalleCounter}" placeholder="Producto">
+        </div>
             <div class="form-group col-md-2">
               <input type="text" class="form-control" name="detallesdescripcion${detalleCounter}" placeholder="descripcion">
             </div>
